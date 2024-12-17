@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_material_background"
+    tools:context=".MainActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="4dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/ThemeOverlay.Material3.Dark"
+            app:title="Profilo"
+            app:titleTextColor="@android:color/black"
+            app:subtitleTextColor="@android:color/black"
+            app:theme="@style/ThemeOverlay.Material3.BottomAppBar" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_bar"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="24dp"
+        android:padding="16dp"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FEF7FF"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <!-- Icon -->
+            <ImageView
+                android:id="@+id/card_icon"
+                android:layout_width="136dp"
+                android:layout_height="136dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/profile_default" />
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/titolo_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/card_icon"
+                android:text="Guest1234"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/user_info_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/titolo_card"
+                android:layout_alignStart="@id/titolo_card"
+                android:fontFamily="sans-serif"
+                android:text="Utente come Guest, per vedere le informazioni hai bisogno di un account
+                oppure fare il login, i dati non sono salvati nel database ma in locale"
+
+
+                android:textColor="@android:color/black"
+                android:textSize="12sp"
+                android:textStyle="italic"
+                android:visibility="visible" />
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <LinearLayout
+        android:id="@+id/sezzione_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/card_info"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="Login"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="oppure"
+            android:textSize="16sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_registrazione"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registrazione"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+    <!-- Titolo del Grafico -->
+    <RelativeLayout
+        android:id="@+id/sezione_grafico"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sezzione_account"
+        android:layout_marginTop="17dp"
+        android:background="@color/primary_material_background"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/titolo_grafico"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="Titolo del Grafico"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Totale Tempo -->
+        <TextView
+            android:id="@+id/totale_tempo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titolo_grafico"
+            android:layout_alignStart="@id/titolo_grafico"
+            android:layout_marginBottom="4dp"
+            android:gravity=""
+            android:text="Totale Tempo:"
+            android:textSize="14sp" />
+
+        <!-- Valore di Fainco -->
+        <TextView
+            android:id="@+id/valore_fainco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/totale_tempo"
+            android:layout_alignTop="@id/totale_tempo"
+            android:layout_marginHorizontal="20dp"
+            android:layout_toEndOf="@id/totale_tempo"
+            android:text="00dd 12h 00m"
+            android:textSize="14sp" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_below="@id/valore_fainco"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="2dp"
+            android:background="@color/black"
+
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/info_app"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sezione_grafico"
+        android:layout_marginTop="33dp"
+        android:background="#FEF7FF"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/sezione_info_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="Info App"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="italic" />
+
+        <LinearLayout
+            android:id="@+id/l_"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sezione_info_app"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="Versione:"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="0.0.1.0v"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
+

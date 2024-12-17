@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_profilo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.Material3.Light">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:popupTheme="@style/ThemeOverlay.Material3.Dark"
+                app:subtitleTextColor="@android:color/black"
+                app:theme="@style/ThemeOverlay.Material3.BottomAppBar"
+                app:title="Profilo"
+                app:titleTextColor="@android:color/black" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/top_bar"
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="24dp"
+            android:padding="16dp"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FEF7FF"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <!-- Icon -->
+                <ImageView
+                    android:id="@+id/card_icon"
+                    android:layout_width="136dp"
+                    android:layout_height="136dp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/profile_default" />
+
+                <TextView
+                    android:id="@+id/card_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/card_icon"
+                    android:layout_toEndOf="@id/card_icon"
+                    android:gravity="start"
+                    android:text="Card Title"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+                <!-- Description -->
+                <TextView
+                    android:id="@+id/card_descri_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/card_title"
+                    android:layout_marginTop="20dp"
+                    android:layout_toEndOf="@id/card_icon"
+                    android:autoLink="all"
+                    android:gravity="start"
+                    android:text="Info"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="italic" />
+
+
+                <!-- Prima riga sotto il titolo -->
+                <LinearLayout
+                    android:id="@+id/first_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/card_descri_info"
+                    android:layout_toEndOf="@id/card_icon"
+                    android:orientation="horizontal"
+                    android:paddingBottom="0dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:text="Nome:"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Valore"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <!-- Seconda riga sotto la prima -->
+                <LinearLayout
+                    android:id="@+id/second_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/first_row"
+                    android:layout_toEndOf="@id/card_icon"
+                    android:orientation="horizontal"
+
+                    android:paddingBottom="0dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="Cognome:"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Valore"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <!-- Terza Riga-->
+                <LinearLayout
+                    android:id="@+id/third_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/second_row"
+                    android:layout_toEndOf="@id/card_icon"
+                    android:orientation="horizontal"
+
+                    android:paddingBottom="0dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="Età:"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Valore"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <!-- Sezione Email e Password -->
+        <RelativeLayout
+            android:id="@+id/sezione_info_accesso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/card_info"
+            android:layout_marginTop="57dp"
+            android:background="#FEF7FF"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/text_title_second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="Info Accesso"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+
+            <!-- Campo Email -->
+            <LinearLayout
+                android:id="@+id/l_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_title_second"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="Email:"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="valore.valore@email.com"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/l_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/l_email"
+                android:layout_marginTop="-10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="Password:"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*****************"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginHorizontal="5dp"
+                    android:src="@drawable/ic_visbility" />
+
+                <Space
+                    android:id="@+id/space_pass"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_toEndOf="@id/l_password"
+                    android:text="Cambia"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <!-- Titolo del Grafico -->
+        <RelativeLayout
+            android:id="@+id/sezione_grafico"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sezione_info_accesso"
+            android:layout_marginTop="17dp"
+            android:background="@color/primary_material_background"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/titolo_grafico"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="Titolo del Grafico"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- Totale Tempo -->
+            <TextView
+                android:id="@+id/totale_tempo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/titolo_grafico"
+                android:layout_alignStart="@id/titolo_grafico"
+                android:layout_marginBottom="4dp"
+                android:gravity=""
+                android:text="Totale Tempo:"
+                android:textSize="14sp" />
+
+            <!-- Valore di Fainco -->
+            <TextView
+                android:id="@+id/valore_fainco"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/totale_tempo"
+                android:layout_alignTop="@id/totale_tempo"
+                android:layout_marginHorizontal="20dp"
+                android:layout_toEndOf="@id/totale_tempo"
+                android:text="00dd 12h 00m"
+                android:textSize="14sp" />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barChart"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_below="@id/valore_fainco"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="2dp"
+                android:background="@color/black" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/info_app"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sezione_grafico"
+            android:layout_marginTop="33dp"
+            android:background="#FEF7FF"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/sezione_info_app"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="Info App"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+
+            <LinearLayout
+                android:id="@+id/l_"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sezione_info_app"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="Versione:"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="0.0.1.0v"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
