@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InfopageFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/buttonfluttuante"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="98dp"
+            android:src="@drawable/baseline_add_24"
+            android:background="@drawable/bg_episodesbutton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:id="@+id/thumbnail"
+                    android:layout_width="155dp"
+                    android:layout_height="200dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="106dp"
+                    android:background="@drawable/bg_purpleborder"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/titoloanime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="41dp"
+                    android:layout_marginTop="0dp"
+                    android:text="@string/nome_anime_infopage"
+                    app:layout_constraintStart_toEndOf="@id/thumbnail"
+                    app:layout_constraintTop_toTopOf="@id/thumbnail" />
+
+                <TextView
+                    android:id="@+id/genere"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="41dp"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/genere_infopage"
+                    app:layout_constraintStart_toEndOf="@id/thumbnail"
+                    app:layout_constraintTop_toTopOf="@id/thumbnail" />
+
+                <TextView
+                    android:id="@+id/studio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="41dp"
+                    android:layout_marginTop="64dp"
+                    android:text="@string/studio_infopage"
+                    app:layout_constraintStart_toEndOf="@id/thumbnail"
+                    app:layout_constraintTop_toTopOf="@id/thumbnail" />
+
+                <TextView
+                    android:id="@+id/numeroepisodi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="41dp"
+                    android:layout_marginTop="96dp"
+                    android:text="@string/numero_episodi_infopage"
+                    app:layout_constraintStart_toEndOf="@id/thumbnail"
+                    app:layout_constraintTop_toTopOf="@id/thumbnail" />
+
+
+                <TextView
+                    android:id="@+id/recensione"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="41dp"
+                    android:layout_marginTop="128dp"
+                    android:text="@string/recensione_infopage"
+                    app:layout_constraintStart_toEndOf="@id/thumbnail"
+                    app:layout_constraintTop_toTopOf="@id/thumbnail" />
+
+                <TextView
+                    android:id="@+id/stagione"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="41dp"
+                    android:layout_marginTop="160dp"
+                    android:text="@string/stagione_infopage"
+                    app:layout_constraintStart_toEndOf="@id/thumbnail"
+                    app:layout_constraintTop_toTopOf="@id/thumbnail" />
+
+                <TextView
+                    android:id="@+id/descrizione"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/bg_purpleborder"
+                    android:gravity="left"
+                    android:padding="16dp"
+                    android:text="@string/descrizione"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/thumbnail" />
+
+
+                <Button
+                    android:id="@+id/episodiButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Checklist degli Episodi "
+                    android:drawableEnd="@drawable/baseline_arrow_right_24"
+                    android:textColor="#000000"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/descrizione"
+                    android:background="@drawable/bg_episodesbutton" />
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="#000000"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/episodiButton" />
+
+                <TextView
+                    android:id="@+id/correlati"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Correlati:"
+                    app:layout_constraintTop_toBottomOf="@id/divider"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageView
+                    android:id="@+id/thumbnail1"
+                    android:layout_width="155dp"
+                    android:layout_height="200dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_purpleborder"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/correlati" />
+
+                <ImageView
+                    android:id="@+id/thumbnail2"
+                    android:layout_width="155dp"
+                    android:layout_height="200dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_purpleborder"
+                    app:layout_constraintStart_toEndOf="@id/thumbnail1"
+                    app:layout_constraintTop_toBottomOf="@id/correlati" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

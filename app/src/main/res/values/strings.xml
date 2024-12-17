@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Amation</string>
+    <string name="nome_anime_infopage">Titolo: titolo anime</string>
+    <string name="numero_episodi_infopage">Numero episodi: 24</string>
+    <string name="genere_infopage">Genere: </string>
+    <string name="recensione_infopage">Recensione: 0.0</string>
+    <string name="studio_infopage">Studio: </string>
+    <string name="stagione_infopage">Stagione: </string>
+    <string name="descrizione">Questa è la descrizione del nostro anime. è bella lunga, così magari occupa uno spazio decente e si può vedere il bellissimo effetto di scroll introdotto dalla scrollview, che si vede solo nel momento in cui lo schermo è appunto abbastanza lungo da rendere lo scorrimento possibile. E poi se la descrizione fosse troppo corta sarebbe un po triste da vedere nella pagina, quindi più lunga è meglio è.</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    
 </resources>
