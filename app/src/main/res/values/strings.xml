@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Amation</string>
+    <string name="Titolo_infopage">Informazioni</string>
+    <string name="Titolo_checklistpage">Checklist Episodi</string>
     <string name="nome_anime_infopage">Titolo: titolo anime</string>
     <string name="numero_episodi_infopage">Numero episodi: 24</string>
     <string name="genere_infopage">Genere: </string>

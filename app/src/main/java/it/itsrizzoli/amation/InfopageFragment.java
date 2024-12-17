@@ -66,7 +66,7 @@ public class InfopageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        
+
         View view = inflater.inflate(R.layout.fragment_infopage, container, false);
 
         episodiButton = view.findViewById(R.id.episodiButton);
@@ -89,6 +89,8 @@ public class InfopageFragment extends Fragment {
         // Transazione per sostituire il fragment
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.main, checklistFragment);  // R.id.fragment_container è l'ID del contenitore del fragment
+        //Se il contenitore non sarà main ma qualcosa al suo interno questo andrà modificato
+
         transaction.addToBackStack(null);
         transaction.commit();
     }
