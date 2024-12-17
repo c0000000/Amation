@@ -66,18 +66,15 @@ public class InfopageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        // Inflating il layout
+        
         View view = inflater.inflate(R.layout.fragment_infopage, container, false);
 
-        // Trova il bottone
         episodiButton = view.findViewById(R.id.episodiButton);
 
-        // Imposta un listener per il click
         episodiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Quando il bottone è cliccato, sostituire il fragment
+
                 navigateToChecklistFragment();
             }
         });
@@ -87,13 +84,12 @@ public class InfopageFragment extends Fragment {
 
 
     private void navigateToChecklistFragment() {
-        // Crea una nuova istanza del fragment checklist
         Fragment checklistFragment = new ChecklistBottoniepisodiFragment();
 
-        // Inizia una transazione per sostituire il fragment
+        // Transazione per sostituire il fragment
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.main, checklistFragment);  // R.id.fragment_container è l'ID del contenitore del fragment (nel tuo layout)
-        transaction.addToBackStack(null);  // Aggiungi alla backstack se vuoi che l'utente possa tornare indietro
-        transaction.commit();  // Esegui la transazione
+        transaction.replace(R.id.main, checklistFragment);  // R.id.fragment_container è l'ID del contenitore del fragment
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }
