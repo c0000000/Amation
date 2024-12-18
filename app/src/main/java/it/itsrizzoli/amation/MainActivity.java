@@ -22,25 +22,35 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.nav_host_fragment, new ClassificaFragment())
                 .commit();
-        
+
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = null;
             switch (item.getItemId()) {
-                /*case R.id.nav_home:
-                   // selectedFragment = new HomeFragment();
+              /*  case R.id.menu_home:
+                    // Handle "Home" menu item click
                     break;
-                case R.id.nav_dashboard:
-                    //selectedFragment = new DashboardFragment();
+
+                case R.id.menu_favorites:
+                    // Handle "Preferiti" menu item click
                     break;
-                case R.id.nav_notifications:
-                    //selectedFragment = new NotificationsFragment();
+
+                case R.id.menu_search:
+                    // Handle "Cerca" menu item click
+                    break;
+
+                case R.id.menu_rank:
+                    // Handle "Classifica" menu item click
+                    break;
+
+                case R.id.menu_profile:
+                    // Handle "Profilo" menu item click
                     break;
            */
                 case 1:
-
             }
+
             if (selectedFragment != null) {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.nav_host_fragment, selectedFragment)
@@ -49,5 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
             return true;
         });
+
     }
 }
