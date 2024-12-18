@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.example.retrofit_helper.RequestBuilder;
@@ -85,6 +87,7 @@ public class ClassificaFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_classifica, container, false);
 
+
         RetrofitHelper.<AnimeModel>request("/anime-db")
                 .method(RequestBuilder.HttpType.GET)
                 .onSuccess((call, response, animeRanking, rankingList) -> {
@@ -98,11 +101,17 @@ public class ClassificaFragment extends Fragment {
                     Toast.makeText(getContext(), "Anime caricati", Toast.LENGTH_LONG).show();
                 })
                 .onFailure((call, t) -> {
-                    Toast.makeText(getContext(), "Errore nella chiamata", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Ricaricare la pagina", Toast.LENGTH_LONG).show();
+
                 }).executeRequest(AnimeModel.class);
 
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 
     DynamicListAdapter<AnimeModel> dynamicListAdapter;
@@ -129,40 +138,24 @@ public class ClassificaFragment extends Fragment {
                             .load(animeModel.getPicture())
                             .placeholder(R.drawable.card_image_placehodlerpng) // Your placeholder image
                             .error(R.drawable.card_image_placehodlerpng) // Image to show if the load fails
+                            .dontAnimate()
                             .into(imageView);
 
 
                 })
+                .setOnItemClick((parent, clickedView, pos, itemId) -> {
+                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                    InfopageFragment infopage = new InfopageFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("idAnime", animeList.get(pos).getId() + "");
+                    infopage.setArguments(bundle);
+                    transaction.replace(R.id.nav_host_fragment, infopage);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+
+                    Toast.makeText(getContext(), "Posizione: " + (pos + 1), Toast.LENGTH_SHORT).show();
+
+                })
                 .applyTo(R.id.lista_rank_from_4, view);
-    }
-
-    private void initializePosition(View view, int position, String title, String urlImage) {
-        ImageView imageView;
-        TextView textView;
-
-        switch (position) {
-            case 1:
-                imageView = view.findViewById(R.id.card_anime_first_image);
-                textView = view.findViewById(R.id.title_anime_first);
-                break;
-            case 2:
-                imageView = view.findViewById(R.id.card_anime_second_image);
-                textView = view.findViewById(R.id.title_anime_second);
-                break;
-            case 3:
-                imageView = view.findViewById(R.id.card_anime_third_image);
-                textView = view.findViewById(R.id.title_anime_third);
-                break;
-            default:
-                throw new IllegalArgumentException("Position not recognized: " + position);
-        }
-
-        // Aggiorna il titolo
-        textView.setText(title);
-
-        // Carica l'immagine da URL
-        Glide.with(this)
-                .load(urlImage)
-                .into(imageView);
     }
 }

@@ -157,9 +157,7 @@ public class ProfiloFragment extends Fragment {
 
         int totalTempo = userModel.getTotaleTempo().get(userModel.getTotaleTempo().size() - 1).getTempoS();
         // Converti i secondi in giorni, ore, minuti e secondi usando LocalDateTime
-        LocalDateTime startTime = LocalDateTime.of(0, 1, 1, 0, 0, 0); // Punto iniziale
-        LocalDateTime endTime = startTime.plusSeconds(totalTempo); // Punto finale
-        txtTempoS.setText(endTime.toString());
+        txtTempoS.setText(formatSeconds(totalTempo));
 
         LineData lineData = generateLineChart(userModel);
 
@@ -186,6 +184,13 @@ public class ProfiloFragment extends Fragment {
             Toast.makeText(getContext(), "Click", Toast.LENGTH_SHORT).show();
         });
 
+    }
+    public static String formatSeconds(long seconds) {
+        long days = seconds / 86400;
+        long hours = (seconds % 86400) / 3600;
+        long minutes = ((seconds % 86400) % 3600) / 60;
+
+        return String.format("%d d %02d h %02d m", days, hours, minutes);
     }
 
 
