@@ -20,22 +20,24 @@
             <TextView
                 android:id="@+id/position_rank"
                 android:layout_width="wrap_content"
+                android:minWidth="30dp"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@id/image"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:text="1."
-                android:textSize="48sp"
+                android:text="10."
+                android:textSize="32sp"
                 android:textStyle="bold" />
 
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/image"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@id/position_rank"
                 android:background="@color/black"
+                android:layout_marginEnd="20dp"
                 app:cardCornerRadius="28dp"
                 app:cardElevation="4dp">
 
@@ -43,10 +45,10 @@
                 <ImageView
                     android:id="@+id/card_image_anime"
                     android:layout_width="match_parent"
-                    android:layout_height="58dp"
+                    android:layout_height="80dp"
                     android:contentDescription="Image Card Anime"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/first_image_classifica_min_min" />
+                    android:src="@drawable/dargonball_anime_list" />
 
             </androidx.cardview.widget.CardView>
             <!-- Primo testo sotto l'immagine -->

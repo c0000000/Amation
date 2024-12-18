@@ -6,15 +6,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.retrofit_helper.RequestBuilder;
 import com.example.retrofit_helper.RetrofitHelper;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+
+import it.itsrizzoli.amation.libs.ArrayAdapterUtils;
+import it.itsrizzoli.amation.libs.DynamicListAdapter;
 import it.itsrizzoli.amation.model.AnimeModel;
+import it.itsrizzoli.amation.model.AnimeRanking;
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,43 +78,91 @@ public class ClassificaFragment extends Fragment {
         }
     }
 
+    List<AnimeModel> animeModelList = new ArrayList<>();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_classifica, container, false);
+
         RetrofitHelper.<AnimeModel>request("/anime-db")
                 .method(RequestBuilder.HttpType.GET)
-                .onSuccess((call, response, animeModel, list) -> {
-                    if (animeModel != null) {
-                        Toast.makeText(getContext(), "Anime trovato: " + animeModel, Toast.LENGTH_LONG).show();
+                .onSuccess((call, response, animeRanking, rankingList) -> {
+                    if (rankingList == null) {
+                        Toast.makeText(getContext(), "AnimeRanking null", Toast.LENGTH_LONG).show();
+                        return;
                     }
+                    rankingList.sort(Comparator.comparingInt(anime -> Integer.parseInt(anime.getRanked().replace("#", ""))));
+                    fillAnimeRankAdapter(rankingList, view);
 
-                    if (list != null) {
-                        Toast.makeText(getContext(), "Anime trovati: " + list.size(), Toast.LENGTH_LONG).show();
-                        Log.d("TAG", "LISTA ANIME: " + list.get(0).getTitle());
-                    }
+                    Toast.makeText(getContext(), "Anime caricati", Toast.LENGTH_LONG).show();
                 })
                 .onFailure((call, t) -> {
                     Toast.makeText(getContext(), "Errore nella chiamata", Toast.LENGTH_LONG).show();
                 }).executeRequest(AnimeModel.class);
 
 
-        // Inflate the layout for this fragment
-        View fragment = inflater.inflate(R.layout.fragment_classifica, container, false);
-        ImageView imageView = fragment.findViewById(R.id.card_anime_first_image);
-        ImageView imageViewSecond = fragment.findViewById(R.id.card_anime_second_image);
-        ImageView imageViewThird = fragment.findViewById(R.id.card_anime_third_image);
+        return view;
+    }
 
+    DynamicListAdapter<AnimeModel> dynamicListAdapter;
+
+    private void fillAnimeRankAdapter(List<AnimeModel> animeList, View view) {
+
+        dynamicListAdapter = ArrayAdapterUtils.with(getContext(), animeList)
+                .setLayoutRes(R.layout.item_card_anime)
+                .setBinder((viewHolder, animeModel, i) -> {
+                    // è una item List View
+                    if (animeModel == null) {
+                        Toast.makeText(getContext(), "Anime getView null", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    TextView titleTextView = viewHolder.findViewById(R.id.card_anime_title);
+                    ImageView imageView = viewHolder.findViewById(R.id.card_image_anime);
+                    TextView txtPostion = viewHolder.findViewById(R.id.position_rank);
+                    // Imposta il titolo dell'anime
+                    titleTextView.setText(animeModel.getTitle());
+                    txtPostion.setText(String.valueOf(i + 1));
+
+                    // Carica l'immagine dell'anime utilizzando Glide
+                    Glide.with(getContext())
+                            .load(animeModel.getPicture())
+                            .placeholder(R.drawable.card_image_placehodlerpng) // Your placeholder image
+                            .error(R.drawable.card_image_placehodlerpng) // Image to show if the load fails
+                            .into(imageView);
+
+
+                })
+                .applyTo(R.id.lista_rank_from_4, view);
+    }
+
+    private void initializePosition(View view, int position, String title, String urlImage) {
+        ImageView imageView;
+        TextView textView;
+
+        switch (position) {
+            case 1:
+                imageView = view.findViewById(R.id.card_anime_first_image);
+                textView = view.findViewById(R.id.title_anime_first);
+                break;
+            case 2:
+                imageView = view.findViewById(R.id.card_anime_second_image);
+                textView = view.findViewById(R.id.title_anime_second);
+                break;
+            case 3:
+                imageView = view.findViewById(R.id.card_anime_third_image);
+                textView = view.findViewById(R.id.title_anime_third);
+                break;
+            default:
+                throw new IllegalArgumentException("Position not recognized: " + position);
+        }
+
+        // Aggiorna il titolo
+        textView.setText(title);
+
+        // Carica l'immagine da URL
         Glide.with(this)
-                .load(R.drawable.first_image_classifica_min_min)
+                .load(urlImage)
                 .into(imageView);
-
-        Glide.with(this)
-                .load(R.drawable.first_image_classifica_min_min)
-                .into(imageViewSecond);
-        Glide.with(this)
-                .load(R.drawable.first_image_classifica_min_min)
-                .into(imageViewThird);
-
-        return inflater.inflate(R.layout.fragment_classifica, container, false);
     }
 }
