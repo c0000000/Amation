@@ -68,4 +68,6 @@ public class UserModel {
     public void setTotaleTempo(List<TotaleTempo> totaleTempo) {
         this.totaleTempo = totaleTempo;
     }
+
+
 }

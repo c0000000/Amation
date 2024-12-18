@@ -63,32 +63,45 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         EditText username = view.findViewById(R.id.userText);
         EditText password = view.findViewById(R.id.passwordTetx);
+
         Button logButton = view.findViewById(R.id.logBtn);
+        Button gotoRegistraBtn = view.findViewById(R.id.gotoRegistra);
+
+
 
         logButton.setOnClickListener(new View.OnClickListener() {
+            Fragment passFragment = null;
+
             @Override
             public void onClick(View v) {
                 String userText = String.valueOf(username.getText());
                 String passText = String.valueOf(password.getText());
-                if(userText.equals("admin") && passText.equals("admin")) {
+                if(userText.equals(model.getUsername()) && passText.equals(model.getPassword())) {
                     Toast.makeText(getActivity(), "Loggato con successo!", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(getActivity(), "Username errato!", Toast.LENGTH_SHORT).show();
+                    passFragment = new HomeFragment();
 
+                }else {
+                    Toast.makeText(getActivity(), "Username o password errato!", Toast.LENGTH_SHORT).show();
                 }
-                UserModel model = new UserModel();
-                model.setUsername(userText);
-                model.setPassword(passText);
             }
         }
         );
-        return inflater.inflate(R.layout.fragment_login, container, false);
 
+        gotoRegistraBtn.setOnClickListener(new View.OnClickListener() {
+            Fragment passFragment = null;
 
+            @Override
+            public void onClick(View v) {
+                passFragment = new RegistraFragment();
+
+            }
+        });
+        return view;
 
 
     }
