@@ -77,7 +77,6 @@
                     android:layout_height="200dp"
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="106dp"
-                    android:src=""
                     android:background="@drawable/bg_purpleborder"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

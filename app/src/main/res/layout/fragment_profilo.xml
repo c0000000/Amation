@@ -108,6 +108,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/txt_nome"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Valore"
@@ -134,6 +135,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/txt_cognome"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Valore"
@@ -160,6 +162,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/txt_eta"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Valore"
@@ -210,6 +213,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/txt_email"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -235,6 +239,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/txt_password"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="*****************"

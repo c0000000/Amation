@@ -4,8 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.button.MaterialButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,6 +62,29 @@ public class ProfiloGuestFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profilo_guest, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_profilo_guest, container, false);
+        MaterialButton buttonLogin = view.findViewById(R.id.btn_login);
+        MaterialButton buttonRegistra = view.findViewById(R.id.btn_registrazione);
+
+        buttonLogin.setOnClickListener(view1 -> {
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.nav_host_fragment, new LoginFragment());
+            transaction.addToBackStack(null);
+            transaction.commit();
+
+            Toast.makeText(getContext(), "Login eseguito con successo!", Toast.LENGTH_SHORT).show();
+        });
+
+        buttonRegistra.setOnClickListener(view1 -> {
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.nav_host_fragment, new RegistraFragment());
+            transaction.addToBackStack(null);
+            transaction.commit();
+
+            Toast.makeText(getContext(), "Registrazione completata!", Toast.LENGTH_SHORT).show();
+        });
+
+        return view;
     }
 }
