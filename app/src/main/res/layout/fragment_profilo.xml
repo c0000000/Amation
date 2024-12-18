@@ -181,7 +181,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/card_info"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="#FEF7FF"
             android:orientation="vertical"
             android:padding="16dp">
@@ -261,7 +261,7 @@
                 <com.google.android.material.button.MaterialButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                android:visibility="invisible"
                     android:layout_toEndOf="@id/l_password"
                     android:text="Cambia"
                     android:textSize="14sp" />
@@ -329,7 +329,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/sezione_grafico"
-            android:layout_marginTop="33dp"
+            android:layout_marginTop="24dp"
             android:background="#FEF7FF"
             android:orientation="vertical"
             android:padding="16dp">

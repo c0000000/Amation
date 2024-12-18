@@ -7,7 +7,7 @@ public class AnimeModel {
     private String title; // Il titolo dell'anime
     private String synopsis; // Il riassunto della trama dell'anime
     private String picture; // L'URL dell'immagine di copertina dell'anime
-    private List<Character> characters; // Lista dei personaggi dell'anime
+    //private List<Character> characters; // Lista dei personaggi dell'anime
     private List<Staff> staff; // Lista dello staff dell'anime
     private String trailer; // L'URL del trailer video dell'anime
     private String englishTitle; // Il titolo in inglese dell'anime
@@ -65,13 +65,6 @@ public class AnimeModel {
         this.picture = picture;
     }
 
-    public List<Character> getCharacters() {
-        return characters;
-    }
-
-    public void setCharacters(List<Character> characters) {
-        this.characters = characters;
-    }
 
     public String getTrailer() {
         return trailer;

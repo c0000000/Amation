@@ -88,10 +88,10 @@ public class InfopageFragment extends Fragment {
         if (bundle != null) {
             idAnime = bundle.getString("idAnime");
         } else {
-            idAnime = null;
+            idAnime = "-1";
         }
         //ID FISSO MESSO PER TEST; TOGLIERE QUESTA RIGA SUCCESSIVA PER PRENDERE L'ID DAL BUNDLE INVECE DI VEDERE SEMPRE DRAGON BALL
-        idAnime = "813";
+        //idAnime = "813";
 
         RetrofitHelper.<AnimeModel>request("/anime/trova")
                 .addQueryParam("idAnime", idAnime)
