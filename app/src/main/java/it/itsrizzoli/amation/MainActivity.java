@@ -23,7 +23,7 @@ import it.itsrizzoli.amation.model.UserModel;
 public class MainActivity extends AppCompatActivity {
 
     UserModel user;
-    boolean isGuest = false;
+    boolean isGuest = true;
 
     @Override
     protected void onStart() {
@@ -38,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.nav_host_fragment, new InfopageFragment())
+                .replace(R.id.nav_host_fragment, new HomeFragment())
                 .commit();
-        RetrofitHelper.initialize("http://192.168.0.110:5000");
+        RetrofitHelper.initialize("http://127.0.0.1:5000");
         NetworkConfig.enableDebugMode(true);
 
         Log.d("TAG", "BASE: " + NetworkConfig.getBaseUrl());

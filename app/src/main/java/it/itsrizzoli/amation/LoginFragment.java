@@ -3,6 +3,7 @@ package it.itsrizzoli.amation;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.retrofit_helper.RequestBuilder;
+import com.example.retrofit_helper.RetrofitHelper;
+
+import it.itsrizzoli.amation.model.AnimeModel;
 import it.itsrizzoli.amation.model.UserModel;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,7 +79,6 @@ public class LoginFragment extends Fragment {
         Button gotoRegistraBtn = view.findViewById(R.id.gotoRegistra);
 
 
-
         logButton.setOnClickListener(new View.OnClickListener() {
             Fragment passFragment = null;
 
@@ -81,29 +86,45 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 String userText = String.valueOf(username.getText());
                 String passText = String.valueOf(password.getText());
-                if(userText.equals("admin") && passText.equals("admin")) {
-                    Toast.makeText(getActivity(), "Loggato con successo!", Toast.LENGTH_SHORT).show();
-                    passFragment = new HomeFragment();
 
-                }else {
-                    Toast.makeText(getActivity(), "Username o password errato!", Toast.LENGTH_SHORT).show();
-                }
+                RetrofitHelper.<UserModel>request("/login")
+                        .method(RequestBuilder.HttpType.POST)
+                        .withRequestBody(new UserModel(userText, passText))
+                        .onFailure(new RequestBuilder.OnResponseHandlerError() {
+                            @Override
+                            public void handle(Response<?> response, Throwable throwable) {
+                                Toast.makeText(getContext(), "Username o password errato!", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .onSuccess((call, response, UserModel, list) -> {
+                            if (UserModel != null) {
+                                Toast.makeText(getContext(), "Loggato con successo!", Toast.LENGTH_SHORT).show();
+                                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                                transaction.replace(R.id.nav_host_fragment, new HomeFragment());
+                                transaction.addToBackStack(null);
+                                transaction.commit();
+                            } else {
+                                Toast.makeText(getContext(), "Username o password errato!", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }).executeRequest(UserModel.class);
             }
-        }
-        );
+        });
 
         gotoRegistraBtn.setOnClickListener(new View.OnClickListener() {
-            Fragment passFragment = null;
 
             @Override
             public void onClick(View v) {
-                passFragment = new RegistraFragment();
-
+                Toast.makeText(getActivity(), "Stai andando nella pagina registrazione", Toast.LENGTH_SHORT).show();
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.nav_host_fragment, new RegistraFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
+
         return view;
-
-
     }
 
 }
+

@@ -3,6 +3,7 @@ package it.itsrizzoli.amation;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.arrayadapterutils.ArrayAdapterUtils;
 import com.example.retrofit_helper.NetworkConfig;
 import com.example.retrofit_helper.RequestBuilder;
 import com.example.retrofit_helper.RetrofitHelper;
@@ -73,27 +75,65 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        ImageView imgAnime = view.findViewById(R.id.imageView1);
-        TextView txtAnime = view.findViewById(R.id.textView1);
-
 
         Button btnSpring = view.findViewById(R.id.btnPrimavera);
+
         btnSpring.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
 
-                RetrofitHelper.<AnimeModel>request("/anime_db")
+                RetrofitHelper.<AnimeModel>request("/anime-stagionali")
                         .method(RequestBuilder.HttpType.GET)
+                        .addQueryParam("anno", "2024")
+                        .addQueryParam("stagione", "spring")
                         .onSuccess((call, response, animeModel, list) -> {
-                            if (animeModel != null) {
-                                txtAnime.setText(list.get(0).getTitle());
 
-                                Glide.with(requireContext())
-                                        .load(animeModel.getPicture())
-                                        .into(imgAnime);
+                            if (list == null) {
+                                Toast.makeText(getContext(), "Anime null", Toast.LENGTH_LONG).show();
+                                return;
 
-                            }
+                            } ArrayAdapterUtils.with(getContext(), list)
+                                    .setLayoutRes(R.layout.img_name_anime)
+                                    .setBinder((viewHolder, anime, i) -> {
+                                        // è una item List View
+                                        if (anime == null) {
+                                            Toast.makeText(getContext(), "Anime getView null", Toast.LENGTH_LONG).show();
+                                            return;
+                                        }
+
+                                        ImageView imgAnime = view.findViewById(R.id.imageView1);
+                                        TextView nomeAnime = view.findViewById(R.id.textView1);
+
+                                        // Imposta il titolo dell'anime
+                                        nomeAnime.setText(anime.getTitle());
+
+                                        // Carica l'immagine dell'anime utilizzando Glide
+                                        Glide.with(getContext())
+                                                .load(anime.getPicture())
+                                                .placeholder(R.drawable.card_image_placehodlerpng) // Your placeholder image
+                                                .error(R.drawable.card_image_placehodlerpng) // Image to show if the load fails
+                                                .dontAnimate()
+                                                .into(imgAnime);
+
+
+                                    })
+                                    .setOnItemClick((parent, clickedView, pos, itemId) -> {
+                                        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                                        InfopageFragment infopage = new InfopageFragment();
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("idAnime", list.get(pos).getId() + "");
+                                        infopage.setArguments(bundle);
+                                        transaction.replace(R.id.nav_host_fragment, infopage);
+                                        transaction.addToBackStack(null);
+                                        transaction.commit();
+
+                                        Toast.makeText(getContext(), "Posizione: " + (pos + 1), Toast.LENGTH_SHORT).show();
+
+                                    })
+                                    .applyTo(R.id.lista_anime, view);
+
+
                         }).executeRequest(AnimeModel.class);
             }
             // Inflate the layout for this fragment

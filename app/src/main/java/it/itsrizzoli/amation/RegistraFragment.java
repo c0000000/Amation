@@ -3,6 +3,7 @@ package it.itsrizzoli.amation;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.retrofit_helper.RequestBuilder;
+import com.example.retrofit_helper.RetrofitHelper;
+
 import it.itsrizzoli.amation.model.UserModel;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,7 +80,7 @@ public class RegistraFragment extends Fragment {
         Button goToGuestBtn = view.findViewById(R.id.gotoGuest);
 
         registraBtn.setOnClickListener(new View.OnClickListener() {
-            Fragment passFragment = null;
+
 
             @Override
             public void onClick(View v) {
@@ -84,27 +89,48 @@ public class RegistraFragment extends Fragment {
                 String passText = String.valueOf(password.getText());
                 String passVerText = String.valueOf(passwordVer.getText());
 
-                if (passText.equals(passVerText)) {
-                    UserModel model = new UserModel();
-                    model.setUsername(userText);
-                    model.setEmail(emailText);
-                    model.setPassword(passText);
-                    Toast.makeText(getActivity(), "Registrazione avvenuta con successo!", Toast.LENGTH_SHORT).show();
-                    passFragment = new LoginFragment();
-                } else {
-                    Toast.makeText(getActivity(), "I due password non coincidono!", Toast.LENGTH_SHORT).show();
+                if (!passText.equals(passVerText)) {
+                    Toast.makeText(getContext(), "I due password non coincidono!", Toast.LENGTH_LONG).show();
+                    return;
                 }
+
+                UserModel model = new UserModel();
+                model.setUsername(userText);
+                model.setEmail(emailText);
+                model.setPassword(passText);
+
+                RetrofitHelper.<UserModel>request("/registrazione")
+                        .method(RequestBuilder.HttpType.POST)
+                        .withRequestBody(model)
+                        .onSuccess((call, response, UserModel, list) -> {
+                            if (response.code() == 409) {
+                                Toast.makeText(getContext(), "Utente gia registrato!", Toast.LENGTH_LONG).show();
+                                return;
+                            }
+
+                            if (UserModel != null ) {
+                                Toast.makeText(getContext(), "Registrazioe con successo!", Toast.LENGTH_LONG).show();
+                                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                                transaction.replace(R.id.nav_host_fragment, new LoginFragment());
+                                transaction.addToBackStack(null);
+                                transaction.commit();
+                            } else {
+                                Toast.makeText(getContext(), "Riprova!", Toast.LENGTH_LONG).show();
+                            }
+
+                        }).executeRequest(UserModel.class);
             }
 
 
         });
 
         goToLoginBtn.setOnClickListener(new View.OnClickListener() {
-            Fragment passFragment = null;
-
             @Override
             public void onClick(View v) {
-                passFragment = new LoginFragment();
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.nav_host_fragment, new LoginFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
 
             }
         });

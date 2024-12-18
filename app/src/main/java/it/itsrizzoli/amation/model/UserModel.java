@@ -18,6 +18,15 @@ public class UserModel {
     @SerializedName("totale_tempo")
     private List<TotaleTempo> totaleTempo; // Lista di oggetti rappresentanti il tempo totale per giorno
 
+    public UserModel(String userText, String passText) {
+        this.email = userText;
+        this.password = passText;
+
+    }
+
+    public UserModel() {
+    }
+
     // Getter e Setter per la classe User
 
 
