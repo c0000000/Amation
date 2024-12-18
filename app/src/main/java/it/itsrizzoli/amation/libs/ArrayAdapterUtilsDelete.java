@@ -21,7 +21,7 @@ import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.List;
 
-public class ArrayAdapterUtils<T, V extends View> {
+public class ArrayAdapterUtilsDelete<T, V extends View> {
 
     private final Context context;
     private final List<T> items;
@@ -34,7 +34,7 @@ public class ArrayAdapterUtils<T, V extends View> {
     @Nullable
     private AdapterView.OnItemSelectedListener onItemSelectedListener;
 
-    private ArrayAdapterUtils(@NonNull Context context, @NonNull List<T> items) {
+    private ArrayAdapterUtilsDelete(@NonNull Context context, @NonNull List<T> items) {
         this.context = context;
         this.items = items;
     }
@@ -258,7 +258,7 @@ public class ArrayAdapterUtils<T, V extends View> {
             void onNothingSelected(AdapterView<?> parent);
         }
 
-        public DynamicListAdapter<T> applyTo(@IdRes int listViewId) {
+        public DynamicListAdapterDelete<T> applyTo(@IdRes int listViewId) {
 
             if (!(context instanceof Activity activity)) {
                 throw new IllegalArgumentException("Context must be an instance of Activity.");
@@ -269,7 +269,7 @@ public class ArrayAdapterUtils<T, V extends View> {
                 throw new IllegalArgumentException("Binder cannot be null.");
             }
 
-            ArrayAdapterUtils<T, V> utils = new ArrayAdapterUtils<>(context, items);
+            ArrayAdapterUtilsDelete<T, V> utils = new ArrayAdapterUtilsDelete<>(context, items);
             utils.layoutRes = this.layoutRes;
             utils.binder = this.binder;
 
@@ -288,10 +288,10 @@ public class ArrayAdapterUtils<T, V extends View> {
             }
             this.adapter = utils.createAdapter();
 
-            return new DynamicListAdapter<>(items, adapter);
+            return new DynamicListAdapterDelete<>(items, adapter);
         }
 
-        public DynamicListAdapter<T> applyTo(@IdRes int listViewId, @NonNull View view) {
+        public DynamicListAdapterDelete<T> applyTo(@IdRes int listViewId, @NonNull View view) {
             if (!(context instanceof Activity activity)) {
                 throw new IllegalArgumentException("Context must be an instance of Activity.");
             }
@@ -301,7 +301,7 @@ public class ArrayAdapterUtils<T, V extends View> {
                 throw new IllegalArgumentException("Binder cannot be null.");
             }
 
-            ArrayAdapterUtils<T, V> utils = new ArrayAdapterUtils<>(context, items);
+            ArrayAdapterUtilsDelete<T, V> utils = new ArrayAdapterUtilsDelete<>(context, items);
             utils.layoutRes = this.layoutRes;
             utils.binder = this.binder;
 
@@ -319,7 +319,7 @@ public class ArrayAdapterUtils<T, V extends View> {
                 throw new IllegalArgumentException("View with the given ID is not a ListView or GridView.");
             }
             this.adapter = utils.createAdapter();
-            return  new DynamicListAdapter<>(items, adapter);
+            return  new DynamicListAdapterDelete<>(items, adapter);
         }
 
         public void applyTo(@IdRes int listViewId, @NonNull Activity activity) {
@@ -336,7 +336,7 @@ public class ArrayAdapterUtils<T, V extends View> {
                 if (binder == null) {
                     throw new IllegalArgumentException("Binder cannot be null.");
                 }
-                ArrayAdapterUtils<T, V> utils = new ArrayAdapterUtils<>(context, items);
+                ArrayAdapterUtilsDelete<T, V> utils = new ArrayAdapterUtilsDelete<>(context, items);
                 utils.layoutRes = this.layoutRes;
                 utils.binder = this.binder;
                 utils.configureListView(listView);
@@ -348,7 +348,7 @@ public class ArrayAdapterUtils<T, V extends View> {
 
         @NonNull
         public ArrayAdapter<T> buildAdapter() {
-            ArrayAdapterUtils<T, V> utils = new ArrayAdapterUtils<>(context, items);
+            ArrayAdapterUtilsDelete<T, V> utils = new ArrayAdapterUtilsDelete<>(context, items);
             utils.layoutRes = this.layoutRes;
             utils.binder = this.binder;
             this.adapter = utils.createAdapter();

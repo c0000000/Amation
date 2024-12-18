@@ -5,11 +5,11 @@ import android.widget.ArrayAdapter;
 import androidx.annotation.NonNull;
 
 import java.util.List;
-public class DynamicListAdapter<T> {
+public class DynamicListAdapterDelete<T> {
     private final List<T> items;
     private final ArrayAdapter<T> adapter;
 
-    public DynamicListAdapter(@NonNull List<T> items, @NonNull ArrayAdapter<T> adapter) {
+    public DynamicListAdapterDelete(@NonNull List<T> items, @NonNull ArrayAdapter<T> adapter) {
         this.items = items;
         this.adapter = adapter;
     }
