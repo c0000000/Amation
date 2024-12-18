@@ -22,25 +22,24 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.nav_host_fragment, new ClassificaFragment())
                 .commit();
-        
+
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = null;
-            switch (item.getItemId()) {
-                /*case R.id.nav_home:
-                   // selectedFragment = new HomeFragment();
-                    break;
-                case R.id.nav_dashboard:
-                    //selectedFragment = new DashboardFragment();
-                    break;
-                case R.id.nav_notifications:
-                    //selectedFragment = new NotificationsFragment();
-                    break;
-           */
-                case 1:
 
+            if (item.getItemId() == R.id.menu_home) {
+                selectedFragment = new HomeFragment();
+            }/* else if (item.getItemId() == R.id.menu_favorites) {
+                selectedFragment = new PreferitiFragment();
+            }  else if (item.getItemId() == R.id.menu_search) {
+                selectedFragment = new SearchFragment();
+            }*/ else if (item.getItemId() == R.id.menu_rank) {
+                selectedFragment = new ClassificaFragment();
+            } else if (item.getItemId() == R.id.menu_profile) {
+                selectedFragment = new ProfiloFragment();
             }
+
             if (selectedFragment != null) {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.nav_host_fragment, selectedFragment)
@@ -49,5 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
             return true;
         });
+
     }
 }
