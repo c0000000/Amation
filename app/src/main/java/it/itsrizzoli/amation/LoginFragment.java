@@ -7,6 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import it.itsrizzoli.amation.model.UserModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,7 +63,34 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        EditText username = view.findViewById(R.id.userText);
+        EditText password = view.findViewById(R.id.passwordTetx);
+        Button logButton = view.findViewById(R.id.logBtn);
+
+        logButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String userText = String.valueOf(username.getText());
+                String passText = String.valueOf(password.getText());
+                if(userText.equals("admin") && passText.equals("admin")) {
+                    Toast.makeText(getActivity(), "Loggato con successo!", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getActivity(), "Username errato!", Toast.LENGTH_SHORT).show();
+
+                }
+                UserModel model = new UserModel();
+                model.setUsername(userText);
+                model.setPassword(passText);
+            }
+        }
+        );
         return inflater.inflate(R.layout.fragment_login, container, false);
+
+
+
+
     }
+
 }
