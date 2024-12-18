@@ -20,6 +20,7 @@ import com.example.retrofit_helper.NetworkConfig;
 import com.example.retrofit_helper.RequestBuilder;
 import com.example.retrofit_helper.RetrofitHelper;
 
+import it.itsrizzoli.amation.libs.ArrayAdapterUtilsDelete;
 import it.itsrizzoli.amation.model.AnimeModel;
 
 /**
@@ -73,10 +74,10 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View viewFragment = inflater.inflate(R.layout.fragment_home, container, false);
 
 
-        Button btnSpring = view.findViewById(R.id.btnPrimavera);
+        Button btnSpring = viewFragment.findViewById(R.id.btnPrimavera);
 
         btnSpring.setOnClickListener(new View.OnClickListener() {
 
@@ -85,7 +86,7 @@ public class HomeFragment extends Fragment {
 
                 RetrofitHelper.<AnimeModel>request("/anime-stagionali")
                         .method(RequestBuilder.HttpType.GET)
-                        .addQueryParam("anno", "2024")
+                        .addQueryParam("anno", "2009")
                         .addQueryParam("stagione", "spring")
                         .onSuccess((call, response, animeModel, list) -> {
 
@@ -93,7 +94,8 @@ public class HomeFragment extends Fragment {
                                 Toast.makeText(getContext(), "Anime null", Toast.LENGTH_LONG).show();
                                 return;
 
-                            } ArrayAdapterUtils.with(getContext(), list)
+                            }
+                            ArrayAdapterUtils.with(getContext(), list)
                                     .setLayoutRes(R.layout.img_name_anime)
                                     .setBinder((viewHolder, anime, i) -> {
                                         // è una item List View
@@ -102,8 +104,8 @@ public class HomeFragment extends Fragment {
                                             return;
                                         }
 
-                                        ImageView imgAnime = view.findViewById(R.id.imageView1);
-                                        TextView nomeAnime = view.findViewById(R.id.textView1);
+                                        ImageView imgAnime = viewHolder.findViewById(R.id.imageView1);
+                                        TextView nomeAnime = viewHolder.findViewById(R.id.textView1);
 
                                         // Imposta il titolo dell'anime
                                         nomeAnime.setText(anime.getTitle());
@@ -131,14 +133,14 @@ public class HomeFragment extends Fragment {
                                         Toast.makeText(getContext(), "Posizione: " + (pos + 1), Toast.LENGTH_SHORT).show();
 
                                     })
-                                    .applyTo(R.id.lista_anime, view);
+                                    .applyTo(R.id.lista_anime, viewFragment);
 
 
                         }).executeRequest(AnimeModel.class);
             }
             // Inflate the layout for this fragment
         });
-        return view;
+        return viewFragment;
     }
 
 }

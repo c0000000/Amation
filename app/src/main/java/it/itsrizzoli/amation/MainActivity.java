@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.nav_host_fragment, new HomeFragment())
                 .commit();
-        RetrofitHelper.initialize("http://127.0.0.1:5000");
+        RetrofitHelper.initialize("http://192.168.1.250:5000");
         NetworkConfig.enableDebugMode(true);
 
         Log.d("TAG", "BASE: " + NetworkConfig.getBaseUrl());

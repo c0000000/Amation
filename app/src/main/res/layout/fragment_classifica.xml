@@ -10,7 +10,7 @@
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Widget.Material3.AppBarLayout">
+        android:background="@color/primary_material_background">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"

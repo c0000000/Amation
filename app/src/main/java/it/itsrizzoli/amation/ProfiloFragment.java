@@ -1,5 +1,6 @@
 package it.itsrizzoli.amation;
 
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -205,8 +206,16 @@ public class ProfiloFragment extends Fragment {
         }
 
         LineDataSet lineDataSet = new LineDataSet(entries, "Totale Tempo");
-        lineDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        lineDataSet.setValueTextColor(android.R.color.black);
+        // Imposta un colore visibile per la linea
+        lineDataSet.setColor(Color.BLUE);
+        // Imposta uno spessore maggiore per la linea
+        lineDataSet.setLineWidth(3f);
+        // Aggiunge punti marcatori visibili
+        lineDataSet.setCircleColor(Color.RED);
+        lineDataSet.setCircleRadius(5f);
+        // Mostra i valori sopra i punti
+        lineDataSet.setValueTextSize(10f);
+        lineDataSet.setValueTextColor(Color.BLACK);
 
         return new LineData(lineDataSet);
     }
@@ -214,20 +223,29 @@ public class ProfiloFragment extends Fragment {
     private void configureLineChart(LineData lineData) {
         lineChart.setData(lineData);
 
+        // Configurazione dell'asse X
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(1f);
+        xAxis.setDrawGridLines(false); // Rimuove le linee della griglia sull'asse X
+        xAxis.setTextColor(Color.BLACK);
+        xAxis.setAxisLineColor(Color.BLACK);
 
+        // Configurazione dell'asse Y
         YAxis leftAxis = lineChart.getAxisLeft();
         leftAxis.setGranularity(1f);
-        leftAxis.setDrawGridLines(true);
+        leftAxis.setDrawGridLines(true); // Mostra le linee della griglia sull'asse Y
+        leftAxis.setTextColor(Color.BLACK);
+        leftAxis.setAxisLineColor(Color.BLACK);
 
-        lineChart.getAxisRight().setEnabled(false);
-
+        // Configurazione generale del grafico
         lineChart.setDrawGridBackground(false);
         lineChart.setDrawBorders(true);
+        lineChart.setBorderColor(Color.GRAY);
         lineChart.setDescription(null);
-
-        lineChart.invalidate();
+        lineChart.setTouchEnabled(true);
+        lineChart.setPinchZoom(true);
+        lineChart.invalidate(); // Rinfresca il grafico
     }
+
 }

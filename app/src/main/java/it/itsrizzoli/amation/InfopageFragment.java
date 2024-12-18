@@ -36,7 +36,6 @@ public class InfopageFragment extends Fragment {
     private Button episodiButton;
 
 
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -119,7 +118,9 @@ public class InfopageFragment extends Fragment {
                     }
                 })
                 .onFailure((call, throwable) -> {
-                    Toast.makeText(getContext(), "Errore nel caricamento dei dati", Toast.LENGTH_SHORT).show();
+                    if (getContext() != null) {
+                        Toast.makeText(getContext(), "Errore nel caricamento dei dati", Toast.LENGTH_SHORT).show();
+                    }
                 })
                 .executeRequest(AnimeModel.class);
 
@@ -170,7 +171,6 @@ public class InfopageFragment extends Fragment {
             transaction.commitAllowingStateLoss();
         }
     }
-
 
 
     private void addAnimeToFavorites(String idAnime) {
