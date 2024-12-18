@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -17,8 +18,13 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.retrofit_helper.RequestBuilder;
 import com.example.retrofit_helper.RetrofitHelper;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import it.itsrizzoli.amation.model.AnimeModel;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -95,17 +101,22 @@ public class InfopageFragment extends Fragment {
 
         RatingBar recensione = view.findViewById(R.id.stellerecensione);
 
+        FloatingActionButton buttonFluttuante;
+
 
         Bundle bundle = getArguments();
-        if (bundle!=null){
-            String value = bundle.getString("idAnime"); //L'id passato dal bundle
+        String idAnime;
+        if (bundle != null) {
+            idAnime = bundle.getString("idAnime");
+        } else {
+            idAnime = null;
         }
 
         RetrofitHelper.<AnimeModel>request("/anime/trova/{id_anime}")
-        .addPathParam("id_anime", "idAnime")
+                .addPathParam("id_anime", idAnime)
                 .method(RequestBuilder.HttpType.GET)
                 .onSuccess((call, response, animeModel, list) -> {
-                    if(animeModel != null){
+                    if (animeModel != null) {
                         titoloAnime.setText(animeModel.getTitle());
                         descrizione.setText(animeModel.getSynopsis());
                         stagione.setText(animeModel.getPremiered());
@@ -130,6 +141,13 @@ public class InfopageFragment extends Fragment {
                     Toast.makeText(getContext(), "Errore nel caricamento dei dati", Toast.LENGTH_SHORT).show();
                 });
 
+
+        //Il bottone buttonFluttuante è quello con il + dentro, per aggiungere l'anime ai preferiti
+        buttonFluttuante = view.findViewById(R.id.buttonfluttuante);
+        buttonFluttuante.setOnClickListener(v -> {
+            addAnimeToFavorites(idAnime);
+        });
+
         episodiButton = view.findViewById(R.id.episodiButton);
 
         episodiButton.setOnClickListener(new View.OnClickListener() {
@@ -138,6 +156,11 @@ public class InfopageFragment extends Fragment {
 
                 navigateToChecklistFragment();
             }
+        });
+
+        ImageButton backButton = view.findViewById(R.id.infoBackButton);
+        backButton.setOnClickListener(v -> {
+            requireActivity().getSupportFragmentManager().popBackStack();
         });
 
         return view;
@@ -157,5 +180,16 @@ public class InfopageFragment extends Fragment {
 
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+
+    private void addAnimeToFavorites(String idAnime) {
+        // PER ADESSO L'ID UTENTE NON è PASSATO MA è FISSO A 3
+        int idUtente = 3;
+
+        // Crea il corpo JSON da inviare al server
+        Map<String, Object> requestData = new HashMap<>();
+        requestData.put("idUtente", idUtente);
+        requestData.put("idAnime", idAnime);
     }
 }

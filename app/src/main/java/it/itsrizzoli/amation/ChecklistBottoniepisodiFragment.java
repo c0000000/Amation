@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.retrofit_helper.RequestBuilder;
@@ -57,31 +58,33 @@ public class ChecklistBottoniepisodiFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflating the view
+
         View view = inflater.inflate(R.layout.fragment_checklist_bottoniepisodi, container, false);
 
-        // Initialize the GridView
         gridView = view.findViewById(R.id.gridViewChecklist);
 
-        // Recupera l'idAnime dal Bundle
         Bundle args = getArguments();
         if (args != null) {
             String idAnime = args.getString("idAnime");
 
-            // Fai una richiesta API per ottenere i dettagli dell'anime (incluso il numero di episodi)
             RetrofitHelper.<AnimeModel>request("/anime/trova/{id_anime}")
                     .addPathParam("id_anime", idAnime)
                     .method(RequestBuilder.HttpType.GET)
                     .onSuccess((call, response, animeModel, list) -> {
                         if (animeModel != null) {
                             int numeroEpisodi = animeModel.getEpisodes();
-                            setupGridView(view, numeroEpisodi); // Carica la GridView con i bottoni
+                            setupGridView(view, numeroEpisodi);
                         }
                     })
                     .onFailure((call, throwable) -> {
                         Toast.makeText(getContext(), "Errore nel caricamento dei dati", Toast.LENGTH_SHORT).show();
                     });
         }
+
+        ImageButton backButton = view.findViewById(R.id.checklistBackButton);
+        backButton.setOnClickListener(v -> {
+            requireActivity().getSupportFragmentManager().popBackStack();
+        });
 
         return view;
     }
