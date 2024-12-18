@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide; // Assicurati di avere Glide nel tuo build.gradle
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -49,14 +49,23 @@ public class AnimeAdapter extends BaseAdapter {
         TextView textView = convertView.findViewById(R.id.titoloTextView);
 
         AnimeModel anime = animeList.get(position);
-        textView.setText(anime.getTitle());
+        String title = anime.getTitle();
 
-        // Carica l'immagine usando Glide
+
+        String limiteTitolo = limiteTitolo(title, 35);
+        textView.setText(limiteTitolo);
+
         Glide.with(context)
                 .load(anime.getPicture())
                 .into(imageView);
 
-
         return convertView;
+    }
+
+    private String limiteTitolo(String title, int maxLength) {
+        if (title.length() > maxLength) {
+            return title.substring(0, maxLength) + "...";
+        }
+        return title;
     }
 }

@@ -1,6 +1,8 @@
 package it.itsrizzoli.amation;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +11,6 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -32,6 +33,7 @@ public class PaginaCercaFragment extends Fragment {
     private GridView gridView;
     private AnimeAdapter animeAdapter;
     private List<AnimeModel> animeList = new ArrayList<>();
+    private List<AnimeModel> filteredAnimeList = new ArrayList<>(); // Lista filtrata
     private boolean isExpanded = false;
 
     public PaginaCercaFragment() {
@@ -76,6 +78,24 @@ public class PaginaCercaFragment extends Fragment {
         // Carica i dati degli anime
         loadAnimeData();
 
+        // Aggiungi il TextWatcher per filtrare i titoli
+        editCerca.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Non fare nulla
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterAnime(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Non fare nulla
+            }
+        });
+
         return view;
     }
 
@@ -100,7 +120,8 @@ public class PaginaCercaFragment extends Fragment {
                 .onSuccess((call, response, animeModel, list) -> {
                     if (list != null) {
                         animeList.addAll(list);
-                        animeAdapter = new AnimeAdapter(getContext(), animeList);
+                        filteredAnimeList.addAll(list);
+                        animeAdapter = new AnimeAdapter(getContext(), filteredAnimeList);
                         gridView.setAdapter(animeAdapter);
                         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
@@ -108,7 +129,7 @@ public class PaginaCercaFragment extends Fragment {
                                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                                 InfopageFragment infopage = new InfopageFragment();
                                 Bundle bundle = new Bundle();
-                                bundle.putString("idAnime", animeList.get(position).getId() + "");
+                                bundle.putString("idAnime", filteredAnimeList.get(position).getId() + "");
                                 infopage.setArguments(bundle);
                                 transaction.replace(R.id.nav_host_fragment, infopage);
                                 transaction.addToBackStack(null);
@@ -123,4 +144,24 @@ public class PaginaCercaFragment extends Fragment {
                     Toast.makeText(getContext(), "Errore nella chiamata: " + t.getMessage(), Toast.LENGTH_LONG).show();
                 }).executeRequest(AnimeModel.class);
     }
+
+    private void filterAnime(String query) {
+        filteredAnimeList.clear();
+
+        if (query.isEmpty()) {
+
+            filteredAnimeList.addAll(animeList);
+        } else {
+
+            for (AnimeModel anime : animeList) {
+                if (anime.getTitle().toLowerCase().contains(query.toLowerCase())) {
+                    filteredAnimeList.add(anime);
+                }
+            }
+        }
+
+        // Notifica l'adapter che i dati sono cambiati
+        animeAdapter.notifyDataSetChanged();
+    }
 }
+
