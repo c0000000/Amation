@@ -81,7 +81,7 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 String userText = String.valueOf(username.getText());
                 String passText = String.valueOf(password.getText());
-                if(userText.equals(model.getUsername()) && passText.equals(model.getPassword())) {
+                if(userText.equals("admin") && passText.equals("admin")) {
                     Toast.makeText(getActivity(), "Loggato con successo!", Toast.LENGTH_SHORT).show();
                     passFragment = new HomeFragment();
 
