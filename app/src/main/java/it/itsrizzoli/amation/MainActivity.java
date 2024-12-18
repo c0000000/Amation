@@ -85,11 +85,11 @@ public class MainActivity extends AppCompatActivity {
 
             if (item.getItemId() == R.id.menu_home) {
                 selectedFragment = new HomeFragment();
-            }/* else if (item.getItemId() == R.id.menu_favorites) {
-                selectedFragment = new PreferitiFragment();
+            } else if (item.getItemId() == R.id.menu_favorites) {
+                selectedFragment = new PaginaPrefFragment();
             }  else if (item.getItemId() == R.id.menu_search) {
-                selectedFragment = new SearchFragment();
-            }*/ else if (item.getItemId() == R.id.menu_rank) {
+                selectedFragment = new PaginaCercaFragment();
+            } else if (item.getItemId() == R.id.menu_rank) {
                 selectedFragment = new ClassificaFragment();
             } else if (item.getItemId() == R.id.menu_profile) {
                 selectedFragment = !isGuest ? new ProfiloFragment() : new ProfiloGuestFragment();

@@ -1,64 +1,78 @@
 package it.itsrizzoli.amation;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PaginaCercaFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import androidx.fragment.app.Fragment;
+
 public class PaginaCercaFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private EditText editCerca;
+    private ImageView upArrow;
+    private ImageView downArrow;
+    private LinearLayout hiddenLayout;
+    private boolean isExpanded = false;
 
     public PaginaCercaFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PaginaCercaFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PaginaCercaFragment newInstance(String param1, String param2) {
-        PaginaCercaFragment fragment = new PaginaCercaFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pagina_cerca, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_pagina_cerca, container, false);
+
+        editCerca = view.findViewById(R.id.editCerca);
+        upArrow = view.findViewById(R.id.upArrow);
+        downArrow = view.findViewById(R.id.downArrow);
+        hiddenLayout = view.findViewById(R.id.hiddenLayout);
+
+
+        hiddenLayout.setVisibility(View.GONE);
+        upArrow.setVisibility(View.GONE);
+        downArrow.setVisibility(View.VISIBLE);
+
+
+        downArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleHiddenLayout();
+            }
+        });
+
+        upArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleHiddenLayout();
+            }
+        });
+
+        return view;
+    }
+
+    public void toggleHiddenLayout() {
+        if (isExpanded) {
+            hiddenLayout.setVisibility(View.GONE);
+            upArrow.setVisibility(View.GONE);
+            downArrow.setVisibility(View.VISIBLE);
+            downArrow.setImageResource(android.R.drawable.arrow_down_float);
+        } else {
+            hiddenLayout.setVisibility(View.VISIBLE);
+            upArrow.setVisibility(View.VISIBLE);
+            downArrow.setVisibility(View.GONE);
+            downArrow.setImageResource(android.R.drawable.arrow_up_float);
+        }
+        isExpanded = !isExpanded;
     }
 }
