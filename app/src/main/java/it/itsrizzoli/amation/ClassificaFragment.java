@@ -1,37 +1,29 @@
 package it.itsrizzoli.amation;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
+import com.example.arrayadapterutils.ArrayAdapterUtils;
+import com.example.arrayadapterutils.DynamicListAdapter;
 import com.example.retrofit_helper.RequestBuilder;
 import com.example.retrofit_helper.RetrofitHelper;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 
-import it.itsrizzoli.amation.libs.ArrayAdapterUtils;
-import it.itsrizzoli.amation.libs.DynamicListAdapter;
+import it.itsrizzoli.amation.libs.ArrayAdapterUtilsDelete;
+import it.itsrizzoli.amation.libs.DynamicListAdapterDelete;
 import it.itsrizzoli.amation.model.AnimeModel;
-import it.itsrizzoli.amation.model.AnimeRanking;
-import retrofit2.Call;
-import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -114,11 +106,11 @@ public class ClassificaFragment extends Fragment {
         super.onStart();
     }
 
-    DynamicListAdapter<AnimeModel> dynamicListAdapter;
+    DynamicListAdapter<AnimeModel> dynamicListAdapterDelete;
 
     private void fillAnimeRankAdapter(List<AnimeModel> animeList, View view) {
 
-        dynamicListAdapter = ArrayAdapterUtils.with(getContext(), animeList)
+        dynamicListAdapterDelete = ArrayAdapterUtils.with(getContext(), animeList)
                 .setLayoutRes(R.layout.item_card_anime)
                 .setBinder((viewHolder, animeModel, i) -> {
                     // è una item List View
