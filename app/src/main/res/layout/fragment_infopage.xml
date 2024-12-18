@@ -160,7 +160,7 @@
                     android:text="@string/descrizione"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/thumbnail" />
+                    app:layout_constraintTop_toBottomOf="@id/episodiButton" />
 
 
                 <Button
@@ -171,9 +171,9 @@
                     android:layout_marginTop="16dp"
                     android:text="Checklist degli Episodi "
                     android:drawableEnd="@drawable/baseline_arrow_right_24"
-                    android:textColor="#000000"
+                    android:textColor="#FFFFFF"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/descrizione"
+                    app:layout_constraintTop_toBottomOf="@id/thumbnail"
                     android:background="@drawable/bg_episodesbutton" />
 
                 <View

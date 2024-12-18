@@ -66,6 +66,8 @@ public class ChecklistBottoniepisodiFragment extends Fragment {
         Bundle args = getArguments();
         if (args != null) {
             String idAnime = args.getString("idAnime");
+            //ID TEMPORANEO PER FARE PROVE SENZA BUNDLE, RIMUOVERE
+            idAnime = "813";
 
             RetrofitHelper.<AnimeModel>request("/anime/trova")
                     .addQueryParam("idAnime", idAnime)
