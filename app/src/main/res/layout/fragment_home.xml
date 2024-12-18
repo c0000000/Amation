@@ -47,7 +47,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_left"
             android:contentDescription="Freccia Sinistra"
-            android:background="@null" />
+            android:background="@null"
+            />
 
 
         <TextView
@@ -113,7 +114,8 @@
             />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/lista_anime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:baselineAligned="false"
@@ -121,57 +123,10 @@
         android:padding="8dp"
         android:weightSum="2"
         android:layout_below="@id/toggleButton"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="8dp">
+        >
 
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:scaleType="centerCrop"
-                android:background="@drawable/rounded_border"
-                />
-
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="16sp"
-                android:textColor="@color/black"
-                android:paddingTop="4dp" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="8dp">
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:scaleType="centerCrop"
-                android:background="@drawable/rounded_border"/>
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="16sp"
-                android:textColor="@color/black"
-                android:paddingTop="4dp" />
-        </LinearLayout>
-    </LinearLayout>
+    </ListView>
 
 </RelativeLayout>
