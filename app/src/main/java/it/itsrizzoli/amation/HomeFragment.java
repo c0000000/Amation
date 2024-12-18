@@ -7,7 +7,18 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.example.retrofit_helper.NetworkConfig;
+import com.example.retrofit_helper.RequestBuilder;
+import com.example.retrofit_helper.RetrofitHelper;
+
+import it.itsrizzoli.amation.model.AnimeModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,12 +71,34 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        ImageView imgAnime = view.findViewById(R.id.imageView1);
+        TextView txtAnime = view.findViewById(R.id.textView1);
 
 
+        Button btnSpring = view.findViewById(R.id.btnPrimavera);
+        btnSpring.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View view) {
 
+                RetrofitHelper.<AnimeModel>request("/anime_db")
+                        .method(RequestBuilder.HttpType.GET)
+                        .onSuccess((call, response, animeModel, list) -> {
+                            if (animeModel != null) {
+                                txtAnime.setText(list.get(0).getTitle());
+
+                                Glide.with(requireContext())
+                                        .load(animeModel.getPicture())
+                                        .into(imgAnime);
+
+                            }
+                        }).executeRequest(AnimeModel.class);
+            }
+            // Inflate the layout for this fragment
+        });
+        return view;
     }
+
 }

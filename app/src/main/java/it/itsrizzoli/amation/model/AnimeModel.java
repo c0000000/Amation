@@ -32,6 +32,7 @@ public class AnimeModel {
     private String favorites; // Numero di preferiti dell'anime
     private String url; // L'URL della pagina dell'anime
 
+
     public String getTitle() {
         return title;
     }
