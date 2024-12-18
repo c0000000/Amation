@@ -50,33 +50,12 @@ public class InfopageFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment InfoFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static InfopageFragment newInstance(String param1, String param2) {
+    public static InfopageFragment newInstance(String IdAnime) {
         InfopageFragment fragment = new InfopageFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString("IdAnime", IdAnime);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-
     }
 
     @Override
@@ -172,19 +151,26 @@ public class InfopageFragment extends Fragment {
 
 
     private void navigateToChecklistFragment() {
-        Fragment checklistFragment = new ChecklistBottoniepisodiFragment();
+        Bundle args = getArguments();
+        String idAnime = (args != null && args.getString("idAnime") != null)
+                ? args.getString("idAnime")
+                : "813"; // DEFAULT messo come fallback per prove
 
-        Bundle args = new Bundle();
-        args.putString("idAnime", getArguments().getString("idAnime"));
-        checklistFragment.setArguments(args);
 
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.main, checklistFragment);  // R.id.fragment_container è l'ID del contenitore del fragment
-        //Se il contenitore non sarà main ma qualcosa al suo interno questo andrà modificato
+        Fragment checklistFragment = ChecklistBottoniepisodiFragment.newInstance(idAnime);
 
-        transaction.addToBackStack(null);
-        transaction.commit();
+        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+
+        transaction.replace(R.id.main, checklistFragment);
+        transaction.addToBackStack("ChecklistFragment");
+
+        if (!requireActivity().getSupportFragmentManager().isStateSaved()) {
+            transaction.commit();
+        } else {
+            transaction.commitAllowingStateLoss();
+        }
     }
+
 
 
     private void addAnimeToFavorites(String idAnime) {
@@ -195,7 +181,7 @@ public class InfopageFragment extends Fragment {
                 .method(RequestBuilder.HttpType.POST)
                 .onSuccess((call, response, animeModel, list) -> {
                     Toast.makeText(getContext(), "Anime Aggiunto alla Lista dei Preferiti", Toast.LENGTH_SHORT).show();
-                });
+                }).executeRequest(Void.class);
 
     }
 }
