@@ -17,7 +17,7 @@
         app:labelVisibilityMode="labeled"
         app:menu="@menu/barra_navigazione"
         app:itemIconSize="32dp"
-        android:layout_marginBottom="20dp"
+
 
         />
 
