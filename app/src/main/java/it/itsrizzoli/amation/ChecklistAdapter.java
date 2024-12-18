@@ -12,16 +12,18 @@ public class ChecklistAdapter extends BaseAdapter {
 
     private LayoutInflater inflater;
     private Context context;
+    private int numeroEpisodi;
 
-    public ChecklistAdapter(Context context) {
+    public ChecklistAdapter(Context context, int numeroEpisodi) {
         this.context = context;
         this.inflater = LayoutInflater.from(context);
+        this.numeroEpisodi = numeroEpisodi;
     }
 
     @Override
     public int getCount() {
-        return 24;
-    } //Il numero di episodi
+        return numeroEpisodi;
+    }
 
     @Override
     public Object getItem(int position) {

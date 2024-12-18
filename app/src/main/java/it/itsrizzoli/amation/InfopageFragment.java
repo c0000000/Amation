@@ -12,6 +12,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.example.retrofit_helper.RequestBuilder;
+import com.example.retrofit_helper.RetrofitHelper;
+
+import it.itsrizzoli.amation.model.AnimeModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -94,6 +101,34 @@ public class InfopageFragment extends Fragment {
             String value = bundle.getString("idAnime"); //L'id passato dal bundle
         }
 
+        RetrofitHelper.<AnimeModel>request("/anime/trova/{id_anime}")
+        .addPathParam("id_anime", "idAnime")
+                .method(RequestBuilder.HttpType.GET)
+                .onSuccess((call, response, animeModel, list) -> {
+                    if(animeModel != null){
+                        titoloAnime.setText(animeModel.getTitle());
+                        descrizione.setText(animeModel.getSynopsis());
+                        stagione.setText(animeModel.getPremiered());
+                        numeroEpisodi.setText(String.valueOf(animeModel.getEpisodes()));
+
+                        String generi = String.join(", ", animeModel.getGenres());
+                        genere.setText(generi);
+
+
+                        String studi = String.join(", ", animeModel.getStudios());
+                        studio.setText(studi);
+
+                        recensione.setRating(Float.parseFloat(animeModel.getScore()) / 2f);
+
+                        Glide.with(this)
+                                .load(animeModel.getPicture())
+                                .into(thumbnail);
+
+                    }
+                })
+                .onFailure((call, throwable) -> {
+                    Toast.makeText(getContext(), "Errore nel caricamento dei dati", Toast.LENGTH_SHORT).show();
+                });
 
         episodiButton = view.findViewById(R.id.episodiButton);
 
@@ -105,14 +140,17 @@ public class InfopageFragment extends Fragment {
             }
         });
 
-        return inflater.inflate(R.layout.fragment_infopage, container, false);
+        return view;
     }
 
 
     private void navigateToChecklistFragment() {
         Fragment checklistFragment = new ChecklistBottoniepisodiFragment();
 
-        // Transazione per sostituire il fragment
+        Bundle args = new Bundle();
+        args.putString("idAnime", getArguments().getString("idAnime"));
+        checklistFragment.setArguments(args);
+
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.main, checklistFragment);  // R.id.fragment_container è l'ID del contenitore del fragment
         //Se il contenitore non sarà main ma qualcosa al suo interno questo andrà modificato

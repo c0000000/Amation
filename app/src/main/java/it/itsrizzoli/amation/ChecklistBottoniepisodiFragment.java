@@ -7,6 +7,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
+import android.widget.Toast;
+
+import com.example.retrofit_helper.RequestBuilder;
+import com.example.retrofit_helper.RetrofitHelper;
+
+import it.itsrizzoli.amation.model.AnimeModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +21,8 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class ChecklistBottoniepisodiFragment extends Fragment {
+
+    private GridView gridView;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -47,18 +56,38 @@ public class ChecklistBottoniepisodiFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflating the view
+        View view = inflater.inflate(R.layout.fragment_checklist_bottoniepisodi, container, false);
+
+        // Initialize the GridView
+        gridView = view.findViewById(R.id.gridViewChecklist);
+
+        // Recupera l'idAnime dal Bundle
+        Bundle args = getArguments();
+        if (args != null) {
+            String idAnime = args.getString("idAnime");
+
+            // Fai una richiesta API per ottenere i dettagli dell'anime (incluso il numero di episodi)
+            RetrofitHelper.<AnimeModel>request("/anime/trova/{id_anime}")
+                    .addPathParam("id_anime", idAnime)
+                    .method(RequestBuilder.HttpType.GET)
+                    .onSuccess((call, response, animeModel, list) -> {
+                        if (animeModel != null) {
+                            int numeroEpisodi = animeModel.getEpisodes();
+                            setupGridView(view, numeroEpisodi); // Carica la GridView con i bottoni
+                        }
+                    })
+                    .onFailure((call, throwable) -> {
+                        Toast.makeText(getContext(), "Errore nel caricamento dei dati", Toast.LENGTH_SHORT).show();
+                    });
         }
+
+        return view;
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_checklist_bottoniepisodi, container, false);
+    private void setupGridView(View view, int numeroEpisodi) {
+        ChecklistAdapter adapter = new ChecklistAdapter(getContext(), numeroEpisodi);
+        gridView.setAdapter(adapter);
     }
 }
