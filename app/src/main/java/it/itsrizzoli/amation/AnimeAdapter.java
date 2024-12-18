@@ -56,6 +56,7 @@ public class AnimeAdapter extends BaseAdapter {
                 .load(anime.getPicture())
                 .into(imageView);
 
+
         return convertView;
     }
 }

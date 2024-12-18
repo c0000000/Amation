@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.retrofit_helper.RequestBuilder;
 import com.example.retrofit_helper.RetrofitHelper;
@@ -100,6 +102,19 @@ public class PaginaCercaFragment extends Fragment {
                         animeList.addAll(list);
                         animeAdapter = new AnimeAdapter(getContext(), animeList);
                         gridView.setAdapter(animeAdapter);
+                        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                                InfopageFragment infopage = new InfopageFragment();
+                                Bundle bundle = new Bundle();
+                                bundle.putString("idAnime", animeList.get(position).getId() + "");
+                                infopage.setArguments(bundle);
+                                transaction.replace(R.id.nav_host_fragment, infopage);
+                                transaction.addToBackStack(null);
+                                transaction.commit();
+                            }
+                        });
                     } else {
                         Toast.makeText(getContext(), "Nessun anime trovato", Toast.LENGTH_LONG).show();
                     }
