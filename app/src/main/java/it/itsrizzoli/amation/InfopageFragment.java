@@ -9,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,6 +71,29 @@ public class InfopageFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_infopage, container, false);
+
+        TextView titoloAnime = view.findViewById(R.id.titoloanime);
+
+        TextView genere = view.findViewById(R.id.genere);
+
+        TextView studio = view.findViewById(R.id.studio);
+
+        TextView numeroEpisodi = view.findViewById(R.id.numeroepisodi);
+
+        TextView stagione = view.findViewById(R.id.stagione);
+
+        TextView descrizione = view.findViewById(R.id.descrizione);
+
+        ImageView thumbnail = view.findViewById(R.id.thumbnail);
+
+        RatingBar recensione = view.findViewById(R.id.stellerecensione);
+        
+
+        Bundle bundle = getArguments();
+        if (bundle!=null){
+            String value = bundle.getString("idAnime"); //L'id passato dal bundle
+        }
+
 
         episodiButton = view.findViewById(R.id.episodiButton);
 

@@ -77,6 +77,7 @@
                     android:layout_height="200dp"
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="106dp"
+                    android:src=""
                     android:background="@drawable/bg_purpleborder"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -132,6 +133,7 @@
                     app:layout_constraintTop_toTopOf="@id/thumbnail" />
 
                 <RatingBar
+                    android:id="@+id/stellerecensione"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="150dp"
@@ -186,36 +188,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/episodiButton" />
-
-                <TextView
-                    android:id="@+id/correlati"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="Correlati:"
-                    app:layout_constraintTop_toBottomOf="@id/divider"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <ImageView
-                    android:id="@+id/thumbnail1"
-                    android:layout_width="155dp"
-                    android:layout_height="200dp"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/bg_purpleborder"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/correlati" />
-
-                <ImageView
-                    android:id="@+id/thumbnail2"
-                    android:layout_width="155dp"
-                    android:layout_height="200dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/bg_purpleborder"
-                    app:layout_constraintStart_toEndOf="@id/thumbnail1"
-                    app:layout_constraintTop_toBottomOf="@id/correlati" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
