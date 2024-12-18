@@ -111,9 +111,11 @@ public class InfopageFragment extends Fragment {
         } else {
             idAnime = null;
         }
+        //ID FISSO MESSO PER TEST; TOGLIERE QUESTA RIGA SUCCESSIVA PER PRENDERE L'ID DAL BUNDLE INVECE DI VEDERE SEMPRE DRAGON BALL
+        idAnime = "813";
 
-        RetrofitHelper.<AnimeModel>request("/anime/trova/{id_anime}")
-                .addPathParam("id_anime", idAnime)
+        RetrofitHelper.<AnimeModel>request("/anime/trova")
+                .addQueryParam("idAnime", idAnime)
                 .method(RequestBuilder.HttpType.GET)
                 .onSuccess((call, response, animeModel, list) -> {
                     if (animeModel != null) {
@@ -139,13 +141,15 @@ public class InfopageFragment extends Fragment {
                 })
                 .onFailure((call, throwable) -> {
                     Toast.makeText(getContext(), "Errore nel caricamento dei dati", Toast.LENGTH_SHORT).show();
-                });
+                })
+                .executeRequest(AnimeModel.class);
 
 
         //Il bottone buttonFluttuante è quello con il + dentro, per aggiungere l'anime ai preferiti
         buttonFluttuante = view.findViewById(R.id.buttonfluttuante);
+        String finalIdAnime = idAnime;
         buttonFluttuante.setOnClickListener(v -> {
-            addAnimeToFavorites(idAnime);
+            addAnimeToFavorites(finalIdAnime);
         });
 
         episodiButton = view.findViewById(R.id.episodiButton);
@@ -184,12 +188,14 @@ public class InfopageFragment extends Fragment {
 
 
     private void addAnimeToFavorites(String idAnime) {
-        // PER ADESSO L'ID UTENTE NON è PASSATO MA è FISSO A 3
-        int idUtente = 3;
+        RetrofitHelper.<Void>request("/add-anime")
+                .addQueryParam("idAnime", idAnime)
+                //Per adesso l'utente è 0
+                .addQueryParam("idUtente", "0")
+                .method(RequestBuilder.HttpType.POST)
+                .onSuccess((call, response, animeModel, list) -> {
+                    Toast.makeText(getContext(), "Anime Aggiunto alla Lista dei Preferiti", Toast.LENGTH_SHORT).show();
+                });
 
-        // Crea il corpo JSON da inviare al server
-        Map<String, Object> requestData = new HashMap<>();
-        requestData.put("idUtente", idUtente);
-        requestData.put("idAnime", idAnime);
     }
 }

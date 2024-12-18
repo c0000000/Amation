@@ -67,8 +67,8 @@ public class ChecklistBottoniepisodiFragment extends Fragment {
         if (args != null) {
             String idAnime = args.getString("idAnime");
 
-            RetrofitHelper.<AnimeModel>request("/anime/trova/{id_anime}")
-                    .addPathParam("id_anime", idAnime)
+            RetrofitHelper.<AnimeModel>request("/anime/trova")
+                    .addQueryParam("idAnime", idAnime)
                     .method(RequestBuilder.HttpType.GET)
                     .onSuccess((call, response, animeModel, list) -> {
                         if (animeModel != null) {
@@ -78,7 +78,7 @@ public class ChecklistBottoniepisodiFragment extends Fragment {
                     })
                     .onFailure((call, throwable) -> {
                         Toast.makeText(getContext(), "Errore nel caricamento dei dati", Toast.LENGTH_SHORT).show();
-                    });
+                    }).executeRequest(AnimeModel.class);
         }
 
         ImageButton backButton = view.findViewById(R.id.checklistBackButton);
