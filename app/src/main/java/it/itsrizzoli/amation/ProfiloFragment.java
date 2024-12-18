@@ -4,8 +4,21 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.example.retrofit_helper.RequestBuilder;
+import com.example.retrofit_helper.RetrofitHelper;
+
+import java.util.List;
+
+import it.itsrizzoli.amation.model.AnimeModel;
+import it.itsrizzoli.amation.model.UserModel;
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +58,8 @@ public class ProfiloFragment extends Fragment {
         return fragment;
     }
 
+    private UserModel userModel;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,12 +67,33 @@ public class ProfiloFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        if (getContext() != null) {
+            SharedPrefsManager sharedPrefsManager = new SharedPrefsManager(getContext());
+            //Richeista Get utente
+            int idUtente = sharedPrefsManager.getUserId();
+
+
+
+
+            userModel = new UserModel();
+
+
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profilo, container, false);
+        View view = inflater.inflate(R.layout.fragment_profilo, container, false);
+
+
+        TextView txtUsername = view.findViewById(R.id.card_title);
+        TextView txtNome = view.findViewById(R.id.txt_nome);
+        TextView txtCognome = view.findViewById(R.id.txt_cognome);
+        TextView txtEmail = view.findViewById(R.id.txt_email);
+
+        return view;
     }
 }

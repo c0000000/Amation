@@ -7,6 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import it.itsrizzoli.amation.model.UserModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,7 +63,54 @@ public class RegistraFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_registra, container, false);
+        View view = inflater.inflate(R.layout.fragment_registra, container, false);
+
+        EditText username = view.findViewById(R.id.userReg);
+        EditText email = view.findViewById(R.id.emailReg);
+        EditText password = view.findViewById(R.id.passReg);
+        EditText passwordVer = view.findViewById(R.id.passVerReg);
+
+        Button registraBtn = view.findViewById(R.id.RegBtn);
+        Button goToLoginBtn = view.findViewById(R.id.gotoLog);
+        Button goToGuestBtn = view.findViewById(R.id.gotoGuest);
+
+        registraBtn.setOnClickListener(new View.OnClickListener() {
+            Fragment passFragment = null;
+
+            @Override
+            public void onClick(View v) {
+                String userText = String.valueOf(username.getText());
+                String emailText = String.valueOf(email.getText());
+                String passText = String.valueOf(password.getText());
+                String passVerText = String.valueOf(passwordVer.getText());
+
+                if (passText.equals(passVerText)) {
+                    UserModel model = new UserModel();
+                    model.setUsername(userText);
+                    model.setEmail(emailText);
+                    model.setPassword(passText);
+                    Toast.makeText(getActivity(), "Registrazione avvenuta con successo!", Toast.LENGTH_SHORT).show();
+                    passFragment = new LoginFragment();
+                } else {
+                    Toast.makeText(getActivity(), "I due password non coincidono!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+
+        });
+
+        goToLoginBtn.setOnClickListener(new View.OnClickListener() {
+            Fragment passFragment = null;
+
+            @Override
+            public void onClick(View v) {
+                passFragment = new LoginFragment();
+
+            }
+        });
+
+        return view;
     }
 }
+
+

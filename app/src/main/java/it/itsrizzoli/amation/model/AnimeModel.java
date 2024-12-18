@@ -25,12 +25,12 @@ public class AnimeModel {
     private String rating; // Classificazione di età dell'anime
     private List<String> genres; // Lista dei generi dell'anime
     private String status; // Stato dell'anime (in corso, terminato)
-    private double score; // Punteggio medio dell'anime
+    private String score; // Punteggio medio dell'anime
     private String scoreStats; // Statistiche sul punteggio
-    private int ranked; // Posizione nell'ranking dell'anime
-    private int popularity; // Popolarità dell'anime
-    private int members; // Numero di membri dell'anime
-    private int favorites; // Numero di preferiti dell'anime
+    private String ranked; // Posizione nell'ranking dell'anime
+    private String popularity; // Popolarità dell'anime
+    private String members; // Numero di membri dell'anime
+    private String favorites; // Numero di preferiti dell'anime
     private String url; // L'URL della pagina dell'anime
 
     public String getTitle() {
@@ -209,12 +209,12 @@ public class AnimeModel {
         this.status = status;
     }
 
-    public double getScore() {
+    public String getScore() {
         return score;
     }
 
     public void setScore(double score) {
-        this.score = score;
+        this.score = String.valueOf(score);
     }
 
     public String getScoreStats() {
@@ -225,36 +225,36 @@ public class AnimeModel {
         this.scoreStats = scoreStats;
     }
 
-    public int getRanked() {
+    public String getRanked() {
         return ranked;
     }
 
     public void setRanked(int ranked) {
-        this.ranked = ranked;
+        this.ranked = String.valueOf(ranked);
     }
 
-    public int getPopularity() {
+    public String getPopularity() {
         return popularity;
     }
 
     public void setPopularity(int popularity) {
-        this.popularity = popularity;
+        this.popularity = String.valueOf(popularity);
     }
 
-    public int getMembers() {
+    public String getMembers() {
         return members;
     }
 
     public void setMembers(int members) {
-        this.members = members;
+        this.members = String.valueOf(members);
     }
 
-    public int getFavorites() {
+    public String getFavorites() {
         return favorites;
     }
 
     public void setFavorites(int favorites) {
-        this.favorites = favorites;
+        this.favorites = String.valueOf(favorites);
     }
 
     public String getUrl() {

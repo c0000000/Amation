@@ -156,7 +156,7 @@
             android:layout_alignTop="@id/totale_tempo"
             android:layout_marginHorizontal="20dp"
             android:layout_toEndOf="@id/totale_tempo"
-            android:text="00dd 12h 00m"
+            android:text="00dd 00h 00m"
             android:textSize="14sp" />
 
         <com.github.mikephil.charting.charts.BarChart
