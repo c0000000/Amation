@@ -12,9 +12,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.retrofit_helper.NetworkConfig;
+/*import com.example.retrofit_helper.NetworkConfig;
 import com.example.retrofit_helper.RequestBuilder;
-import com.example.retrofit_helper.RetrofitHelper;
+import com.example.retrofit_helper.RetrofitHelper;*/
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import it.itsrizzoli.amation.model.AnimeModel;
@@ -22,7 +22,7 @@ import it.itsrizzoli.amation.model.UserModel;
 
 public class MainActivity extends AppCompatActivity {
 
-    UserModel user;
+    UserModel user;              
     boolean isGuest = false;
 
     @Override
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.nav_host_fragment, new HomeFragment())
                 .commit();
-        RetrofitHelper.initialize("http://192.168.1.250:5000");
+       /* RetrofitHelper.initialize("http://192.168.1.250:5000");
         NetworkConfig.enableDebugMode(true);
 
         Log.d("TAG", "BASE: " + NetworkConfig.getBaseUrl());
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 .onFailure((call, t) -> {
                     Toast.makeText(this, "Errore nella chiamata", Toast.LENGTH_LONG).show();
                 }).executeRequest(AnimeModel.class);
-
+*/
 
         SharedPrefsManager sharedPrefsManager = new SharedPrefsManager(this);
         sharedPrefsManager.clearAll();
@@ -85,11 +85,11 @@ public class MainActivity extends AppCompatActivity {
 
             if (item.getItemId() == R.id.menu_home) {
                 selectedFragment = new HomeFragment();
-            }/* else if (item.getItemId() == R.id.menu_favorites) {
-                selectedFragment = new PreferitiFragment();
+            }else if (item.getItemId() == R.id.menu_favorites) {
+                selectedFragment = new PaginaPrefFragment();
             }  else if (item.getItemId() == R.id.menu_search) {
-                selectedFragment = new SearchFragment();
-            }*/ else if (item.getItemId() == R.id.menu_rank) {
+                selectedFragment = new PaginaCercaFragment();
+            }  else if (item.getItemId() == R.id.menu_rank) {
                 selectedFragment = new ClassificaFragment();
             } else if (item.getItemId() == R.id.menu_profile) {
                 selectedFragment = !isGuest ? new ProfiloFragment() : new ProfiloGuestFragment();
