@@ -11,7 +11,6 @@ public class AnimeModel {
     private List<Staff> staff; // Lista dello staff dell'anime
     private String trailer; // L'URL del trailer video dell'anime
     private String englishTitle; // Il titolo in inglese dell'anime
-    private String japaneseTitle; // Il titolo in giapponese dell'anime
     private List<String> synonyms; // Lista di sinonimi del titolo dell'anime
     private String type; // Tipo di anime (TV, OVA, Film, Special)
     private int episodes; // Numero di episodi andati in onda
@@ -97,13 +96,6 @@ public class AnimeModel {
         this.englishTitle = englishTitle;
     }
 
-    public String getJapaneseTitle() {
-        return japaneseTitle;
-    }
-
-    public void setJapaneseTitle(String japaneseTitle) {
-        this.japaneseTitle = japaneseTitle;
-    }
 
     public List<String> getSynonyms() {
         return synonyms;

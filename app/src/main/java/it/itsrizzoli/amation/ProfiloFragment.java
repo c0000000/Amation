@@ -176,16 +176,14 @@ public class ProfiloFragment extends Fragment {
         ImageButton imgButtonWatch = view.findViewById(R.id.imgBtnWatch);
 
         imgButtonWatch.setOnClickListener(v -> {
-            Drawable currentDrawable = imgButtonWatch.getDrawable();
-            Drawable visibleDrawable = ContextCompat.getDrawable(v.getContext(), R.drawable.ic_visibility_off);
-
-            if (currentDrawable != null && Objects.equals(currentDrawable.getConstantState(), Objects.requireNonNull(visibleDrawable).getConstantState())) {
+            if (txtPassword.getText().equals("*****************")) {
                 imgButtonWatch.setImageResource(R.drawable.ic_visibility_off); // Cambia immagine
                 txtPassword.setText(userModel.getPassword()); // Mostra la password
             } else {
                 imgButtonWatch.setImageResource(R.drawable.ic_visibility); // Cambia immagine
-                txtPassword.setText("********");
+                txtPassword.setText("*****************");
             }
+            Toast.makeText(getContext(), "Click", Toast.LENGTH_SHORT).show();
         });
 
     }

@@ -181,7 +181,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/card_info"
-            android:layout_marginTop="57dp"
+            android:layout_marginTop="20dp"
             android:background="#FEF7FF"
             android:orientation="vertical"
             android:padding="16dp">
