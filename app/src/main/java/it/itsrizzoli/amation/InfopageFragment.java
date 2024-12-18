@@ -87,7 +87,7 @@ public class InfopageFragment extends Fragment {
         ImageView thumbnail = view.findViewById(R.id.thumbnail);
 
         RatingBar recensione = view.findViewById(R.id.stellerecensione);
-        
+
 
         Bundle bundle = getArguments();
         if (bundle!=null){
