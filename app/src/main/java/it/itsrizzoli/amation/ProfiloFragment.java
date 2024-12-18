@@ -160,10 +160,6 @@ public class ProfiloFragment extends Fragment {
         // Converti i secondi in giorni, ore, minuti e secondi usando LocalDateTime
         txtTempoS.setText(formatSeconds(totalTempo));
 
-        LineData lineData = generateLineChart(userModel);
-
-        configureLineChart(lineData);
-
         if (sharedPrefsManager == null) {
             Toast.makeText(getContext(), "Impossibile caricare il profilo", Toast.LENGTH_LONG).show();
         } else {
@@ -186,6 +182,7 @@ public class ProfiloFragment extends Fragment {
         });
 
     }
+
     public static String formatSeconds(long seconds) {
         long days = seconds / 86400;
         long hours = (seconds % 86400) / 3600;
@@ -194,58 +191,5 @@ public class ProfiloFragment extends Fragment {
         return String.format("%d d %02d h %02d m", days, hours, minutes);
     }
 
-
-    private LineData generateLineChart(UserModel userModel) {
-        List<TotaleTempo> dataList = userModel.getTotaleTempo();
-
-        List<Entry> entries = new ArrayList<>();
-        for (TotaleTempo totaleTempo : dataList) {
-            float xValue = totaleTempo.getGiorno();
-            float yValue = totaleTempo.getTempoS();
-            entries.add(new Entry(xValue, yValue));
-        }
-
-        LineDataSet lineDataSet = new LineDataSet(entries, "Totale Tempo");
-        // Imposta un colore visibile per la linea
-        lineDataSet.setColor(Color.BLUE);
-        // Imposta uno spessore maggiore per la linea
-        lineDataSet.setLineWidth(3f);
-        // Aggiunge punti marcatori visibili
-        lineDataSet.setCircleColor(Color.RED);
-        lineDataSet.setCircleRadius(5f);
-        // Mostra i valori sopra i punti
-        lineDataSet.setValueTextSize(10f);
-        lineDataSet.setValueTextColor(Color.BLACK);
-
-        return new LineData(lineDataSet);
-    }
-
-    private void configureLineChart(LineData lineData) {
-        lineChart.setData(lineData);
-
-        // Configurazione dell'asse X
-        XAxis xAxis = lineChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setGranularity(1f);
-        xAxis.setDrawGridLines(false); // Rimuove le linee della griglia sull'asse X
-        xAxis.setTextColor(Color.BLACK);
-        xAxis.setAxisLineColor(Color.BLACK);
-
-        // Configurazione dell'asse Y
-        YAxis leftAxis = lineChart.getAxisLeft();
-        leftAxis.setGranularity(1f);
-        leftAxis.setDrawGridLines(true); // Mostra le linee della griglia sull'asse Y
-        leftAxis.setTextColor(Color.BLACK);
-        leftAxis.setAxisLineColor(Color.BLACK);
-
-        // Configurazione generale del grafico
-        lineChart.setDrawGridBackground(false);
-        lineChart.setDrawBorders(true);
-        lineChart.setBorderColor(Color.GRAY);
-        lineChart.setDescription(null);
-        lineChart.setTouchEnabled(true);
-        lineChart.setPinchZoom(true);
-        lineChart.invalidate(); // Rinfresca il grafico
-    }
 
 }

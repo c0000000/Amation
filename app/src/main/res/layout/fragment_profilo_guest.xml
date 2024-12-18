@@ -7,21 +7,24 @@
     android:layout_height="match_parent"
     android:background="@color/primary_material_background"
     tools:context=".MainActivity">
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="4dp">
+        android:layout_height="84dp"
+        android:background="#b09fff"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.Material3.Light">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/ThemeOverlay.Material3.Dark"
-            app:title="Profilo"
-            app:titleTextColor="@android:color/black"
             app:subtitleTextColor="@android:color/black"
-            app:theme="@style/ThemeOverlay.Material3.BottomAppBar" />
+            app:theme="@style/ThemeOverlay.Material3.BottomAppBar"
+            app:title="Profilo"
+            app:titleTextColor="@android:color/black" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -162,10 +165,11 @@
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/barChart"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="0dp"
             android:layout_below="@id/valore_fainco"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="2dp"
+            android:visibility="invisible"
             android:background="@color/black"
 
             />
@@ -176,7 +180,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/sezione_grafico"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="0dp"
         android:background="#FEF7FF"
         android:orientation="vertical"
         android:padding="16dp">

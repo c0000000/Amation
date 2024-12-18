@@ -14,8 +14,8 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/top_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
+            android:layout_height="84dp"
+            android:background="#b09fff"
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.Material3.Light">
 
@@ -317,10 +317,12 @@
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/chart"
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
+                android:layout_height="0dp"
                 android:layout_below="@id/totale_tempo"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="2dp"
+                android:visibility="invisible"
+
                 android:background="@color/black" />
         </RelativeLayout>
 
@@ -329,7 +331,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/sezione_grafico"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="0dp"
             android:background="#FEF7FF"
             android:orientation="vertical"
             android:padding="16dp">

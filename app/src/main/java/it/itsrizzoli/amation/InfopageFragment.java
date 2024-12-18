@@ -178,9 +178,9 @@ public class InfopageFragment extends Fragment {
                 .addQueryParam("idAnime", idAnime)
                 //Per adesso l'utente è 0
                 .addQueryParam("idUtente", "0")
-                .method(RequestBuilder.HttpType.POST)
+                .method(RequestBuilder.HttpType.GET)
                 .onSuccess((call, response, animeModel, list) -> {
-                    Toast.makeText(getContext(), "Anime Aggiunto alla Lista dei Preferiti", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Anime Aggiunto alla Lista dei Preferiti", Toast.LENGTH_LONG).show();
                 }).executeRequest(Void.class);
 
     }

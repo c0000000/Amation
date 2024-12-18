@@ -1,7 +1,10 @@
 package it.itsrizzoli.amation.model;
 
+import com.google.gson.annotations.SerializedName;
+
 // Classe interna per rappresentare il tempo totale per giorno
 public class TotaleTempo {
+    @SerializedName("tempo_s")
     private int tempoS; // Tempo in secondi
     private int giorno; // Giorno
 
