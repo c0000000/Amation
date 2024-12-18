@@ -41,7 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:orientation="horizontal"
-                    android:background="#B09FFF"
+                    android:background="#7300b0"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
                     android:gravity="center_vertical"
@@ -52,6 +52,7 @@
                         android:id="@+id/infoBackButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="#7300b0"
                         android:src="@drawable/baseline_arrow_back_24"
                         android:padding="12dp"
                         android:textSize="24dp"
@@ -63,8 +64,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/Titolo_infopage"
                         android:textSize="24dp"
-                        android:textColor="#000000"
-                        android:layout_gravity="center"/>
+                        android:textColor="#FFFFFF"
+                        android:layout_gravity="center"
+                        />
 
                 </LinearLayout>
 

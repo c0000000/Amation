@@ -8,29 +8,30 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="106dp"
-        android:background="#B09FFF"
-        android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:background="#7300b0"
         android:paddingStart="16dp"
-        android:paddingEnd="16dp">
+        android:paddingEnd="16dp"
+        android:gravity="center_vertical">
 
         <ImageButton
             android:id="@+id/checklistBackButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:padding="12dp"
             android:src="@drawable/baseline_arrow_back_24"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:padding="12dp"
+            android:background="#7300b0"
+            android:layout_marginEnd="16dp" />
 
         <TextView
             android:id="@+id/checklistPageTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:text="@string/Titolo_checklistpage"
-            android:textColor="#000000"
-            android:textSize="24dp" />
+            android:textSize="24dp"
+            android:textColor="#FFFFFF"
+            android:layout_gravity="center"/>
 
     </LinearLayout>
 
@@ -38,15 +39,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
-
         <GridView
             android:id="@+id/gridViewChecklist"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:numColumns="5"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="106dp"
             android:layout_marginEnd="12dp"
-            android:numColumns="5">
+            android:layout_marginTop="106dp"
+            >
 
         </GridView>
 
