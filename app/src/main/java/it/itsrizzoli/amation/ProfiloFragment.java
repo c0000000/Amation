@@ -1,24 +1,34 @@
 package it.itsrizzoli.amation;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.retrofit_helper.RequestBuilder;
 import com.example.retrofit_helper.RetrofitHelper;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-import it.itsrizzoli.amation.model.AnimeModel;
+import it.itsrizzoli.amation.model.TotaleTempo;
 import it.itsrizzoli.amation.model.UserModel;
-import retrofit2.Call;
-import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +69,7 @@ public class ProfiloFragment extends Fragment {
     }
 
     private UserModel userModel;
+    private LineChart lineChart;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,8 +85,6 @@ public class ProfiloFragment extends Fragment {
             int idUtente = sharedPrefsManager.getUserId();
 
 
-
-
             userModel = new UserModel();
 
 
@@ -85,15 +94,137 @@ public class ProfiloFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profilo, container, false);
 
+
+        int idUtente = -1;
+        SharedPrefsManager sharedPrefsManager;
+        if (getContext() != null) {
+            sharedPrefsManager = new SharedPrefsManager(getContext());
+            sharedPrefsManager.clearAll();
+            idUtente = sharedPrefsManager.getUserId();
+        } else {
+            sharedPrefsManager = null;
+        }
+
+        if (idUtente != -1) {
+            return view;
+        }
+        idUtente = 0;
+
+        getUtenteAsync(idUtente, view, sharedPrefsManager);
+
+
+        return view;
+    }
+
+    private void getUtenteAsync(int idUtente, View view, SharedPrefsManager sharedPrefsManager) {
+        RetrofitHelper.<UserModel>request("/profilo")
+                .addQueryParam("idUtente", String.valueOf(idUtente))
+                .method(RequestBuilder.HttpType.GET)
+                .onSuccess((call, response, userModel, list) -> {
+                    setInfoProfilo(userModel, view, sharedPrefsManager);
+                }).onFailure((call, t) -> {
+                    Toast.makeText(getContext(), "Errore durante il caricamento del profilo", Toast.LENGTH_LONG).show();
+                    t.printStackTrace();
+                })
+                .executeRequest(UserModel.class);
+    }
+
+    private void setInfoProfilo(UserModel userModel, View view, SharedPrefsManager sharedPrefsManager) {
+        if (userModel == null) {
+            Toast.makeText(getContext(), "Profilo non trovato", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         TextView txtUsername = view.findViewById(R.id.card_title);
         TextView txtNome = view.findViewById(R.id.txt_nome);
         TextView txtCognome = view.findViewById(R.id.txt_cognome);
         TextView txtEmail = view.findViewById(R.id.txt_email);
+        TextView txtEta = view.findViewById(R.id.txt_eta);
+        TextView txtTempoS = view.findViewById(R.id.valore_tempo_totale);
+        TextView txtPassword = view.findViewById(R.id.txt_password);
+        lineChart = view.findViewById(R.id.chart);
 
-        return view;
+        txtUsername.setText(userModel.getUsername());
+        txtNome.setText(userModel.getNome());
+        txtCognome.setText(userModel.getCognome());
+        txtEta.setText(String.valueOf(userModel.getDataNascita()));
+
+        txtEmail.setText(userModel.getEmail());
+
+        int totalTempo = userModel.getTotaleTempo().get(userModel.getTotaleTempo().size() - 1).getTempoS();
+        // Converti i secondi in giorni, ore, minuti e secondi usando LocalDateTime
+        LocalDateTime startTime = LocalDateTime.of(0, 1, 1, 0, 0, 0); // Punto iniziale
+        LocalDateTime endTime = startTime.plusSeconds(totalTempo); // Punto finale
+        txtTempoS.setText(endTime.toString());
+
+        LineData lineData = generateLineChart(userModel);
+
+        configureLineChart(lineData);
+
+        if (sharedPrefsManager == null) {
+            Toast.makeText(getContext(), "Impossibile caricare il profilo", Toast.LENGTH_LONG).show();
+        } else {
+            sharedPrefsManager.saveUserId(userModel.getId());
+            Toast.makeText(getContext(), "Profilo caricato", Toast.LENGTH_LONG).show();
+
+        }
+
+        ImageButton imgButtonWatch = view.findViewById(R.id.imgBtnWatch);
+
+        imgButtonWatch.setOnClickListener(v -> {
+            Drawable currentDrawable = imgButtonWatch.getDrawable();
+            Drawable visibleDrawable = ContextCompat.getDrawable(v.getContext(), R.drawable.ic_visibility_off);
+
+            if (currentDrawable != null && Objects.equals(currentDrawable.getConstantState(), Objects.requireNonNull(visibleDrawable).getConstantState())) {
+                imgButtonWatch.setImageResource(R.drawable.ic_visibility_off); // Cambia immagine
+                txtPassword.setText(userModel.getPassword()); // Mostra la password
+            } else {
+                imgButtonWatch.setImageResource(R.drawable.ic_visibility); // Cambia immagine
+                txtPassword.setText("********");
+            }
+        });
+
+    }
+
+
+    private LineData generateLineChart(UserModel userModel) {
+        List<TotaleTempo> dataList = userModel.getTotaleTempo();
+
+        List<Entry> entries = new ArrayList<>();
+        for (TotaleTempo totaleTempo : dataList) {
+            float xValue = totaleTempo.getGiorno();
+            float yValue = totaleTempo.getTempoS();
+            entries.add(new Entry(xValue, yValue));
+        }
+
+        LineDataSet lineDataSet = new LineDataSet(entries, "Totale Tempo");
+        lineDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        lineDataSet.setValueTextColor(android.R.color.black);
+
+        return new LineData(lineDataSet);
+    }
+
+    private void configureLineChart(LineData lineData) {
+        lineChart.setData(lineData);
+
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(1f);
+
+        YAxis leftAxis = lineChart.getAxisLeft();
+        leftAxis.setGranularity(1f);
+        leftAxis.setDrawGridLines(true);
+
+        lineChart.getAxisRight().setEnabled(false);
+
+        lineChart.setDrawGridBackground(false);
+        lineChart.setDrawBorders(true);
+        lineChart.setDescription(null);
+
+        lineChart.invalidate();
     }
 }

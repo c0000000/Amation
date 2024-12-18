@@ -1,18 +1,34 @@
 package it.itsrizzoli.amation.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
+import java.util.UUID;
 
 // Modello per rappresentare il JSON
 public class UserModel {
+    private int id = UUID.randomUUID().hashCode();
     private String nome; // Nome dell'utente
     private String cognome; // Cognome dell'utente
+    @SerializedName("data_nascita")
     private String dataNascita; // Data di nascita dell'utente
     private String username; // Username dell'utente
     private String email; // Email dell'utente
     private String password; // Password dell'utente
+    @SerializedName("totale_tempo")
     private List<TotaleTempo> totaleTempo; // Lista di oggetti rappresentanti il tempo totale per giorno
 
     // Getter e Setter per la classe User
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
     }

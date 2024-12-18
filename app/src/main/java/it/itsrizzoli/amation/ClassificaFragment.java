@@ -1,14 +1,20 @@
 package it.itsrizzoli.amation;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.retrofit_helper.RequestBuilder;
+import com.example.retrofit_helper.RetrofitHelper;
+
+import it.itsrizzoli.amation.model.AnimeModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,6 +66,23 @@ public class ClassificaFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        RetrofitHelper.<AnimeModel>request("/anime-db")
+                .method(RequestBuilder.HttpType.GET)
+                .onSuccess((call, response, animeModel, list) -> {
+                    if (animeModel != null) {
+                        Toast.makeText(getContext(), "Anime trovato: " + animeModel, Toast.LENGTH_LONG).show();
+                    }
+
+                    if (list != null) {
+                        Toast.makeText(getContext(), "Anime trovati: " + list.size(), Toast.LENGTH_LONG).show();
+                        Log.d("TAG", "LISTA ANIME: " + list.get(0).getTitle());
+                    }
+                })
+                .onFailure((call, t) -> {
+                    Toast.makeText(getContext(), "Errore nella chiamata", Toast.LENGTH_LONG).show();
+                }).executeRequest(AnimeModel.class);
+
+
         // Inflate the layout for this fragment
         View fragment = inflater.inflate(R.layout.fragment_classifica, container, false);
         ImageView imageView = fragment.findViewById(R.id.card_anime_first_image);

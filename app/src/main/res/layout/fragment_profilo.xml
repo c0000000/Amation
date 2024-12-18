@@ -157,7 +157,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
-                        android:text="Età:"
+                        android:text="Data di nascita:"
                         android:textSize="12sp"
                         android:textStyle="bold" />
 
@@ -245,11 +245,12 @@
                     android:text="*****************"
                     android:textSize="16sp" />
 
-                <ImageView
+                <ImageButton
+                    android:id="@+id/imgBtnWatch"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginHorizontal="5dp"
-                    android:src="@drawable/ic_visbility" />
+                    android:background="@drawable/ic_visibility" />
 
                 <Space
                     android:id="@+id/space_pass"
@@ -303,7 +304,7 @@
 
             <!-- Valore di Fainco -->
             <TextView
-                android:id="@+id/valore_fainco"
+                android:id="@+id/valore_tempo_totale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/totale_tempo"
@@ -313,11 +314,11 @@
                 android:text="00dd 12h 00m"
                 android:textSize="14sp" />
 
-            <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/barChart"
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
-                android:layout_below="@id/valore_fainco"
+                android:layout_below="@id/totale_tempo"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="2dp"
                 android:background="@color/black" />
