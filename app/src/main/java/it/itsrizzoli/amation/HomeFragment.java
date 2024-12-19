@@ -26,6 +26,7 @@ import java.util.List;
 
 import it.itsrizzoli.amation.libs.ArrayAdapterUtilsDelete;
 import it.itsrizzoli.amation.model.AnimeModel;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -97,15 +98,15 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 if(btnSpring.isEnabled()){
 
-                    HomeFragment.this.extracted(viewFragment, "2011", "Spring");
-                    btnEstate.setEnabled(false);
+                    HomeFragment.this.extracted(viewFragment, "1989", "Spring");
+
                     Toast.makeText(getContext(), "Refresh ture", Toast.LENGTH_SHORT).show();
 
                 }else if(adapter != null) {
 
                     adapter.clearItems();
                     allAnime(viewFragment);
-                    btnEstate.setEnabled(true);
+
                     Toast.makeText(getContext(), "Refresh falsee", Toast.LENGTH_SHORT).show();
                 }
 
@@ -121,14 +122,12 @@ public class HomeFragment extends Fragment {
                 if(btnEstate.isEnabled()){
 
                     HomeFragment.this.extracted(viewFragment, "2011", "Fall");
-                    btnSpring.setEnabled(false);
                     Toast.makeText(getContext(), "Refresh ture", Toast.LENGTH_SHORT).show();
 
                 }else if(adapter != null) {
 
                     adapter.clearItems();
                     allAnime(viewFragment);
-                    btnSpring.setEnabled(true);
                     Toast.makeText(getContext(), "Refresh falsee", Toast.LENGTH_SHORT).show();
                 }
 
@@ -252,7 +251,13 @@ public class HomeFragment extends Fragment {
                             .applyTo(R.id.lista_anime, viewFragment);
 
 
-                }).executeRequest(AnimeModel.class);
+                }).onFailure(new RequestBuilder.OnResponseHandlerError() {
+                    @Override
+                    public void handle(Response<?> response, Throwable throwable) {
+
+                    }
+                })
+                .executeRequest(AnimeModel.class);
     }
 
 }
