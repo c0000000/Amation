@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     UserModel user;
     boolean isGuest = true;
 
+
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.nav_host_fragment, new HomeFragment())
                 .commit();
-        RetrofitHelper.initialize("http://192.168.1.250:5000");
+        RetrofitHelper.initialize("http://172.17.49.183:5000");
         NetworkConfig.enableDebugMode(true);
 
         Log.d("TAG", "BASE: " + NetworkConfig.getBaseUrl());
