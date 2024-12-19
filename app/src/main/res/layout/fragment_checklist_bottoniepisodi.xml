@@ -21,6 +21,7 @@
             android:src="@drawable/baseline_arrow_back_24"
             android:textSize="24sp"
             android:padding="12dp"
+            android:contentDescription="Indietro"
             android:background="#7300b0"
             android:layout_marginEnd="16dp" />
 

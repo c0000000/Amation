@@ -21,7 +21,6 @@ import com.example.retrofit_helper.NetworkConfig;
 import com.example.retrofit_helper.RequestBuilder;
 import com.example.retrofit_helper.RetrofitHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import it.itsrizzoli.amation.model.AnimeModel;
