@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.nav_host_fragment, new HomeFragment())
+                .replace(R.id.nav_host_fragment, new LoginFragment())
                 .commit();
         RetrofitHelper.initialize("http://172.17.49.183:5000");
         NetworkConfig.enableDebugMode(true);
