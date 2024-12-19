@@ -132,15 +132,15 @@ public class InfopageFragment extends Fragment {
             addAnimeToFavorites(finalIdAnime);
         });
 
-        episodiButton = view.findViewById(R.id.episodiButton);
+        //episodiButton = view.findViewById(R.id.episodiButton);
 
-        episodiButton.setOnClickListener(new View.OnClickListener() {
+        /*episodiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 navigateToChecklistFragment();
             }
-        });
+        });*/
 
         ImageButton backButton = view.findViewById(R.id.infoBackButton);
         backButton.setOnClickListener(v -> {

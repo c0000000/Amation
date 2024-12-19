@@ -24,7 +24,6 @@ import com.example.retrofit_helper.RetrofitHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.itsrizzoli.amation.libs.ArrayAdapterUtilsDelete;
 import it.itsrizzoli.amation.model.AnimeModel;
 import retrofit2.Response;
 
