@@ -21,8 +21,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import it.itsrizzoli.amation.libs.ArrayAdapterUtilsDelete;
-import it.itsrizzoli.amation.libs.DynamicListAdapterDelete;
 import it.itsrizzoli.amation.model.AnimeModel;
 
 /**
