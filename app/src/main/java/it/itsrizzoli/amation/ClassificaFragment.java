@@ -122,7 +122,7 @@ public class ClassificaFragment extends Fragment {
                     Glide.with(getContext())
                             .load(animeModel.getPicture())
                             .placeholder(R.drawable.card_image_placehodlerpng)
-                            .error(R.drawable.card_image_placehodlerpng) 
+                            .error(R.drawable.card_image_placehodlerpng)
                             .dontAnimate()
                             .into(imageView);
 
