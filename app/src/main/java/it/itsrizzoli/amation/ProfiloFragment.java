@@ -82,7 +82,7 @@ public class ProfiloFragment extends Fragment {
 
         if (getContext() != null) {
             SharedPrefsManager sharedPrefsManager = new SharedPrefsManager(getContext());
-            //Richeista Get utente
+
             int idUtente = sharedPrefsManager.getUserId();
 
 
@@ -96,7 +96,6 @@ public class ProfiloFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profilo, container, false);
 
 
@@ -157,7 +156,7 @@ public class ProfiloFragment extends Fragment {
         txtEmail.setText(userModel.getEmail());
 
         int totalTempo = userModel.getTotaleTempo().get(userModel.getTotaleTempo().size() - 1).getTempoS();
-        // Converti i secondi in giorni, ore, minuti e secondi usando LocalDateTime
+
         txtTempoS.setText(formatSeconds(totalTempo));
 
         if (sharedPrefsManager == null) {
@@ -172,10 +171,10 @@ public class ProfiloFragment extends Fragment {
 
         imgButtonWatch.setOnClickListener(v -> {
             if (txtPassword.getText().equals("*****************")) {
-                imgButtonWatch.setImageResource(R.drawable.ic_visibility_off); // Cambia immagine
-                txtPassword.setText(userModel.getPassword()); // Mostra la password
+                imgButtonWatch.setImageResource(R.drawable.ic_visibility_off);
+                txtPassword.setText(userModel.getPassword());
             } else {
-                imgButtonWatch.setImageResource(R.drawable.ic_visibility); // Cambia immagine
+                imgButtonWatch.setImageResource(R.drawable.ic_visibility);
                 txtPassword.setText("*****************");
             }
             Toast.makeText(getContext(), "Click", Toast.LENGTH_SHORT).show();

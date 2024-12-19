@@ -30,7 +30,7 @@ public class PaginaPrefFragment extends Fragment {
     private GridView gridViewAnimePref;
     private AnimeAdapter animeAdapter;
     private List<AnimeModel> animePrefList = new ArrayList<>();
-    private List<AnimeModel> filteredAnimeList = new ArrayList<>(); // Lista filtrata
+    private List<AnimeModel> filteredAnimeList = new ArrayList<>();
     private EditText editPref;
     private TextView textPref;
     private ImageView backArrow;
@@ -78,12 +78,12 @@ public class PaginaPrefFragment extends Fragment {
         editPref.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // Non fare nulla
+
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                filterAnime(s.toString()); // Filtra gli anime in base alla query
+                filterAnime(s.toString());
             }
 
             @Override
@@ -120,7 +120,6 @@ public class PaginaPrefFragment extends Fragment {
         animePrefList.clear();
         filteredAnimeList.clear();
 
-        // Supponiamo che l'ID utente sia 0
         int userId = 0;
         String url = "/anime/preferiti/" + userId;
 

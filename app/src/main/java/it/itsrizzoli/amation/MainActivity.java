@@ -68,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
         sharedPrefsManager.clearAll();
         int idUtente = sharedPrefsManager.getUserId();
         if (idUtente != -1) {
-            // Fare richeista profilo
+
             user = new UserModel();
-            idUtente = 3;//user.getIdUtente();
+            idUtente = 3;
             sharedPrefsManager.saveUserId(idUtente);
 
             if (user != null) {

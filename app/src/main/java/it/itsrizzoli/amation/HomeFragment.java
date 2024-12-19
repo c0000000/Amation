@@ -120,7 +120,7 @@ public class HomeFragment extends Fragment {
 
 
             }
-            // Inflate the layout for this fragment
+
         });
 
         btnEstate.setOnClickListener(new View.OnClickListener() {
@@ -146,7 +146,7 @@ public class HomeFragment extends Fragment {
 
 
             }
-            // Inflate the layout for this fragment
+
         });
         return viewFragment;
     }
@@ -165,7 +165,6 @@ public class HomeFragment extends Fragment {
                     adapter = ArrayAdapterUtils.with(getContext(), list)
                             .setLayoutRes(R.layout.img_name_anime)
                             .setBinder((viewHolder, anime, i) -> {
-                                // è una item List View
                                 if (anime == null) {
                                     Toast.makeText(getContext(), "Anime getView null", Toast.LENGTH_LONG).show();
                                     return;
@@ -174,14 +173,14 @@ public class HomeFragment extends Fragment {
                                 ImageView imgAnime = viewHolder.findViewById(R.id.imageView1);
                                 TextView nomeAnime = viewHolder.findViewById(R.id.textView1);
 
-                                // Imposta il titolo dell'anime
+
                                 nomeAnime.setText(anime.getTitle());
 
-                                // Carica l'immagine dell'anime utilizzando Glide
+
                                 Glide.with(getContext())
                                         .load(anime.getPicture())
-                                        .placeholder(R.drawable.card_image_placehodlerpng) // Your placeholder image
-                                        .error(R.drawable.card_image_placehodlerpng) // Image to show if the load fails
+                                        .placeholder(R.drawable.card_image_placehodlerpng)
+                                        .error(R.drawable.card_image_placehodlerpng)
                                         .dontAnimate()
                                         .into(imgAnime);
 
@@ -223,7 +222,7 @@ public class HomeFragment extends Fragment {
                     adapter = ArrayAdapterUtils.with(getContext(), list)
                             .setLayoutRes(R.layout.img_name_anime)
                             .setBinder((viewHolder, anime, i) -> {
-                                // è una item List View
+
                                 if (anime == null) {
                                     Toast.makeText(getContext(), "Anime getView null", Toast.LENGTH_LONG).show();
                                     return;
@@ -232,14 +231,14 @@ public class HomeFragment extends Fragment {
                                 ImageView imgAnime = viewHolder.findViewById(R.id.imageView1);
                                 TextView nomeAnime = viewHolder.findViewById(R.id.textView1);
 
-                                // Imposta il titolo dell'anime
+
                                 nomeAnime.setText(anime.getTitle());
 
-                                // Carica l'immagine dell'anime utilizzando Glide
+
                                 Glide.with(getContext())
                                         .load(anime.getPicture())
-                                        .placeholder(R.drawable.card_image_placehodlerpng) // Your placeholder image
-                                        .error(R.drawable.card_image_placehodlerpng) // Image to show if the load fails
+                                        .placeholder(R.drawable.card_image_placehodlerpng)
+                                        .error(R.drawable.card_image_placehodlerpng)
                                         .dontAnimate()
                                         .into(imgAnime);
 

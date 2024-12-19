@@ -51,7 +51,6 @@
                     android:src="@drawable/dargonball_anime_list" />
 
             </androidx.cardview.widget.CardView>
-            <!-- Primo testo sotto l'immagine -->
             <TextView
                 android:id="@+id/card_anime_title"
                 android:layout_width="wrap_content"

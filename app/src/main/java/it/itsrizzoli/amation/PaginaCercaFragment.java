@@ -28,7 +28,7 @@ public class PaginaCercaFragment extends Fragment {
     private GridView gridView;
     private AnimeAdapter animeAdapter;
     private List<AnimeModel> animeList = new ArrayList<>();
-    private List<AnimeModel> filteredAnimeList = new ArrayList<>(); // Lista filtrata
+    private List<AnimeModel> filteredAnimeList = new ArrayList<>();
 
     public PaginaCercaFragment() {
         // Required empty public constructor
@@ -54,7 +54,7 @@ public class PaginaCercaFragment extends Fragment {
         editCerca.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // Non fare nulla
+
             }
 
             @Override
@@ -64,7 +64,7 @@ public class PaginaCercaFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                // Non fare nulla
+
             }
         });
 

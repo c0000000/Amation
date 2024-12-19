@@ -47,7 +47,7 @@
             android:orientation="horizontal"
             android:padding="16dp">
 
-            <!-- Icon -->
+
             <ImageView
                 android:id="@+id/card_icon"
                 android:layout_width="136dp"
@@ -56,7 +56,7 @@
                 android:layout_marginEnd="16dp"
                 android:src="@drawable/profile_default" />
 
-            <!-- Title -->
+
             <TextView
                 android:id="@+id/titolo_card"
                 android:layout_width="match_parent"
@@ -118,7 +118,7 @@
     </LinearLayout>
 
 
-    <!-- Titolo del Grafico -->
+
     <RelativeLayout
         android:id="@+id/sezione_grafico"
         android:layout_width="match_parent"
@@ -138,7 +138,7 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <!-- Totale Tempo -->
+
         <TextView
             android:id="@+id/totale_tempo"
             android:layout_width="wrap_content"
@@ -150,7 +150,7 @@
             android:text="Totale Tempo:"
             android:textSize="14sp" />
 
-        <!-- Valore di Fainco -->
+
         <TextView
             android:id="@+id/valore_fainco"
             android:layout_width="wrap_content"

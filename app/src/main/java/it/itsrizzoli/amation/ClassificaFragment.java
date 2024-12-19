@@ -106,7 +106,6 @@ public class ClassificaFragment extends Fragment {
         ArrayAdapterUtils.with(getContext(), animeList)
                 .setLayoutRes(R.layout.item_card_anime)
                 .setBinder((viewHolder, animeModel, i) -> {
-                    // è una item List View
                     if (animeModel == null) {
                         Toast.makeText(getContext(), "Anime getView null", Toast.LENGTH_LONG).show();
                         return;
@@ -114,11 +113,10 @@ public class ClassificaFragment extends Fragment {
                     TextView titleTextView = viewHolder.findViewById(R.id.card_anime_title);
                     ImageView imageView = viewHolder.findViewById(R.id.card_image_anime);
                     TextView txtPostion = viewHolder.findViewById(R.id.position_rank);
-                    // Imposta il titolo dell'anime
                     titleTextView.setText(animeModel.getTitle());
                     txtPostion.setText(String.valueOf(i + 1));
 
-                    // Carica l'immagine dell'anime utilizzando Glide
+
                     Glide.with(getContext())
                             .load(animeModel.getPicture())
                             .placeholder(R.drawable.card_image_placehodlerpng)

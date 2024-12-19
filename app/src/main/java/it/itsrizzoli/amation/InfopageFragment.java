@@ -89,8 +89,6 @@ public class InfopageFragment extends Fragment {
         } else {
             idAnime = "-1";
         }
-        //ID FISSO MESSO PER TEST; TOGLIERE QUESTA RIGA SUCCESSIVA PER PRENDERE L'ID DAL BUNDLE INVECE DI VEDERE SEMPRE DRAGON BALL
-        //idAnime = "813";
 
         RetrofitHelper.<AnimeModel>request("/anime/trova")
                 .addQueryParam("idAnime", idAnime)
@@ -125,22 +123,13 @@ public class InfopageFragment extends Fragment {
                 .executeRequest(AnimeModel.class);
 
 
-        //Il bottone buttonFluttuante è quello con il + dentro, per aggiungere l'anime ai preferiti
+
         buttonFluttuante = view.findViewById(R.id.buttonfluttuante);
         String finalIdAnime = idAnime;
         buttonFluttuante.setOnClickListener(v -> {
             addAnimeToFavorites(finalIdAnime);
         });
 
-        //episodiButton = view.findViewById(R.id.episodiButton);
-
-        /*episodiButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                navigateToChecklistFragment();
-            }
-        });*/
 
         ImageButton backButton = view.findViewById(R.id.infoBackButton);
         backButton.setOnClickListener(v -> {
@@ -176,7 +165,7 @@ public class InfopageFragment extends Fragment {
     private void addAnimeToFavorites(String idAnime) {
         RetrofitHelper.<Void>request("/add-anime")
                 .addQueryParam("idAnime", idAnime)
-                //Per adesso l'utente è 0
+
                 .addQueryParam("idUtente", "0")
                 .method(RequestBuilder.HttpType.GET)
                 .onSuccess((call, response, animeModel, list) -> {

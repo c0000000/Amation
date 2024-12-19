@@ -4,7 +4,6 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
 
-    <!-- MaterialButton e non CheckButton per ridurre complicazioni riguardo a stile-->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/toggleEpisodio"
         android:layout_width="wrap_content"

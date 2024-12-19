@@ -18,7 +18,7 @@ public class SharedPrefsManager {
 
     public void saveUserId(int userId) {
         editor.putString(KEY_USER_ID, String.valueOf(userId));
-        editor.apply();  // Utilizza apply() per evitare blocchi dell'interfaccia utente.
+        editor.apply();
     }
 
     public int getUserId() {

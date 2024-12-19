@@ -51,7 +51,7 @@
                 android:orientation="horizontal"
                 android:padding="16dp">
 
-                <!-- Icon -->
+
                 <ImageView
                     android:id="@+id/card_icon"
                     android:layout_width="136dp"
@@ -73,7 +73,7 @@
                     android:textStyle="bold" />
 
 
-                <!-- Description -->
+
                 <TextView
                     android:id="@+id/card_descri_info"
                     android:layout_width="wrap_content"
@@ -89,7 +89,7 @@
                     android:textStyle="italic" />
 
 
-                <!-- Prima riga sotto il titolo -->
+
                 <LinearLayout
                     android:id="@+id/first_row"
                     android:layout_width="match_parent"
@@ -115,7 +115,7 @@
                         android:textSize="12sp" />
                 </LinearLayout>
 
-                <!-- Seconda riga sotto la prima -->
+
                 <LinearLayout
                     android:id="@+id/second_row"
                     android:layout_width="match_parent"
@@ -142,7 +142,7 @@
                         android:textSize="12sp" />
                 </LinearLayout>
 
-                <!-- Terza Riga-->
+
                 <LinearLayout
                     android:id="@+id/third_row"
                     android:layout_width="match_parent"
@@ -175,7 +175,7 @@
         </com.google.android.material.card.MaterialCardView>
 
 
-        <!-- Sezione Email e Password -->
+
         <RelativeLayout
             android:id="@+id/sezione_info_accesso"
             android:layout_width="match_parent"
@@ -196,7 +196,7 @@
                 android:textSize="16sp"
                 android:textStyle="italic" />
 
-            <!-- Campo Email -->
+
             <LinearLayout
                 android:id="@+id/l_email"
                 android:layout_width="match_parent"
@@ -270,7 +270,7 @@
 
         </RelativeLayout>
 
-        <!-- Titolo del Grafico -->
+
         <RelativeLayout
             android:id="@+id/sezione_grafico"
             android:layout_width="match_parent"
@@ -290,7 +290,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <!-- Totale Tempo -->
+
             <TextView
                 android:id="@+id/totale_tempo"
                 android:layout_width="wrap_content"
@@ -302,7 +302,7 @@
                 android:text="Totale Tempo:"
                 android:textSize="14sp" />
 
-            <!-- Valore di Fainco -->
+
             <TextView
                 android:id="@+id/valore_tempo_totale"
                 android:layout_width="wrap_content"
