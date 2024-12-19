@@ -42,6 +42,13 @@ public class HomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private boolean isSelectedEstate = false;
+
+    private boolean isSelectedPrimavera = false;
+
+
+
+
     DynamicListAdapter<AnimeModel> adapter;
     List<AnimeModel> allAnimeList;
 
@@ -94,11 +101,13 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
-                if(btnSpring.isEnabled()){
+                if(!isSelectedPrimavera){
 
                     HomeFragment.this.extracted(viewFragment, "1989", "Spring");
 
                     Toast.makeText(getContext(), "Refresh ture", Toast.LENGTH_SHORT).show();
+
+                    isSelectedPrimavera = true;
 
                 }else if(adapter != null) {
 
@@ -106,6 +115,7 @@ public class HomeFragment extends Fragment {
                     allAnime(viewFragment);
 
                     Toast.makeText(getContext(), "Refresh falsee", Toast.LENGTH_SHORT).show();
+                    isSelectedPrimavera = false;
                 }
 
 
@@ -117,16 +127,18 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
-                if(btnEstate.isEnabled()){
+                if(!isSelectedEstate){
 
                     HomeFragment.this.extracted(viewFragment, "2011", "Fall");
                     Toast.makeText(getContext(), "Refresh ture", Toast.LENGTH_SHORT).show();
+                    isSelectedEstate = true;
 
                 }else if(adapter != null) {
 
                     adapter.clearItems();
                     allAnime(viewFragment);
                     Toast.makeText(getContext(), "Refresh falsee", Toast.LENGTH_SHORT).show();
+                    isSelectedEstate = false;
                 }
 
 
