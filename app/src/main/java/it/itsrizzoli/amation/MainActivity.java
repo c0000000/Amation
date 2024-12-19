@@ -1,6 +1,7 @@
 package it.itsrizzoli.amation;
 
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.nav_host_fragment, new LoginFragment())
@@ -46,23 +48,6 @@ public class MainActivity extends AppCompatActivity {
         NetworkConfig.enableDebugMode(true);
 
         Log.d("TAG", "BASE: " + NetworkConfig.getBaseUrl());
-
-        RetrofitHelper.<AnimeModel>request("/anime-db")
-                .method(RequestBuilder.HttpType.GET)
-                .onSuccess((call, response, animeModel, list) -> {
-                    if (animeModel != null) {
-                        Toast.makeText(this, "Anime trovato: " + animeModel, Toast.LENGTH_LONG).show();
-                    }
-
-                    if (list != null) {
-                        Toast.makeText(this, "Anime trovati: " + list.size(), Toast.LENGTH_LONG).show();
-                        Log.d("TAG", "LISTA ANIME: " + list.get(0).getTitle());
-                    }
-                })
-                .onFailure((call, t) -> {
-                    Toast.makeText(this, "Errore nella chiamata", Toast.LENGTH_LONG).show();
-                }).executeRequest(AnimeModel.class);
-
 
         SharedPrefsManager sharedPrefsManager = new SharedPrefsManager(this);
         sharedPrefsManager.clearAll();
