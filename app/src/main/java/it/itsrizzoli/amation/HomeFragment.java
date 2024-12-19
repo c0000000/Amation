@@ -16,11 +16,17 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.arrayadapterutils.ArrayAdapterUtils;
+import com.example.arrayadapterutils.DynamicListAdapter;
 import com.example.retrofit_helper.NetworkConfig;
 import com.example.retrofit_helper.RequestBuilder;
 import com.example.retrofit_helper.RetrofitHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import it.itsrizzoli.amation.libs.ArrayAdapterUtilsDelete;
 import it.itsrizzoli.amation.model.AnimeModel;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +43,9 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    DynamicListAdapter<AnimeModel> adapter;
+    List<AnimeModel> allAnimeList;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -69,6 +78,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -76,70 +86,178 @@ public class HomeFragment extends Fragment {
         View viewFragment = inflater.inflate(R.layout.fragment_home, container, false);
 
 
+        allAnime(viewFragment);
+
+
         Button btnSpring = viewFragment.findViewById(R.id.btnPrimavera);
 
+        Button btnEstate = viewFragment.findViewById(R.id.btnEstate);
         btnSpring.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
+                if(btnSpring.isEnabled()){
 
-                RetrofitHelper.<AnimeModel>request("/anime-stagionali")
-                        .method(RequestBuilder.HttpType.GET)
-                        .addQueryParam("anno", "2009")
-                        .addQueryParam("stagione", "spring")
-                        .onSuccess((call, response, animeModel, list) -> {
+                    HomeFragment.this.extracted(viewFragment, "1989", "Spring");
 
-                            if (list == null) {
-                                Toast.makeText(getContext(), "Anime null", Toast.LENGTH_LONG).show();
-                                return;
+                    Toast.makeText(getContext(), "Refresh ture", Toast.LENGTH_SHORT).show();
 
-                            }
-                            ArrayAdapterUtils.with(getContext(), list)
-                                    .setLayoutRes(R.layout.img_name_anime)
-                                    .setBinder((viewHolder, anime, i) -> {
-                                        // è una item List View
-                                        if (anime == null) {
-                                            Toast.makeText(getContext(), "Anime getView null", Toast.LENGTH_LONG).show();
-                                            return;
-                                        }
+                }else if(adapter != null) {
 
-                                        ImageView imgAnime = viewHolder.findViewById(R.id.imageView1);
-                                        TextView nomeAnime = viewHolder.findViewById(R.id.textView1);
+                    adapter.clearItems();
+                    allAnime(viewFragment);
 
-                                        // Imposta il titolo dell'anime
-                                        nomeAnime.setText(anime.getTitle());
-
-                                        // Carica l'immagine dell'anime utilizzando Glide
-                                        Glide.with(getContext())
-                                                .load(anime.getPicture())
-                                                .placeholder(R.drawable.card_image_placehodlerpng) // Your placeholder image
-                                                .error(R.drawable.card_image_placehodlerpng) // Image to show if the load fails
-                                                .dontAnimate()
-                                                .into(imgAnime);
+                    Toast.makeText(getContext(), "Refresh falsee", Toast.LENGTH_SHORT).show();
+                }
 
 
-                                    })
-                                    .setOnItemClick((parent, clickedView, pos, itemId) -> {
-                                        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                                        InfopageFragment infopage = new InfopageFragment();
-                                        Bundle bundle = new Bundle();
-                                        bundle.putString("idAnime", list.get(pos).getId() + "");
-                                        infopage.setArguments(bundle);
-                                        transaction.replace(R.id.nav_host_fragment, infopage);
-                                        transaction.addToBackStack(null);
-                                        transaction.commit();
+            }
+            // Inflate the layout for this fragment
+        });
 
-                                        Toast.makeText(getContext(), "Posizione: " + (pos + 1), Toast.LENGTH_SHORT).show();
+        btnEstate.setOnClickListener(new View.OnClickListener() {
 
-                                    })
-                                    .applyTo(R.id.lista_anime, viewFragment);
+            @Override
+            public void onClick(View view) {
+                if(btnEstate.isEnabled()){
+
+                    HomeFragment.this.extracted(viewFragment, "2011", "Fall");
+                    Toast.makeText(getContext(), "Refresh ture", Toast.LENGTH_SHORT).show();
+
+                }else if(adapter != null) {
+
+                    adapter.clearItems();
+                    allAnime(viewFragment);
+                    Toast.makeText(getContext(), "Refresh falsee", Toast.LENGTH_SHORT).show();
+                }
 
 
-                        }).executeRequest(AnimeModel.class);
+
+
+
             }
             // Inflate the layout for this fragment
         });
         return viewFragment;
+    }
+
+    private void allAnime(View viewFragment) {
+        RetrofitHelper.<AnimeModel>request("/anime-db")
+                .method(RequestBuilder.HttpType.GET)
+                .onSuccess((call, response, animeModel, list) -> {
+
+                    if (list == null) {
+                        Toast.makeText(getContext(), "Anime null", Toast.LENGTH_LONG).show();
+                        return;
+
+                    }
+                    allAnimeList = list;
+                    adapter = ArrayAdapterUtils.with(getContext(), list)
+                            .setLayoutRes(R.layout.img_name_anime)
+                            .setBinder((viewHolder, anime, i) -> {
+                                // è una item List View
+                                if (anime == null) {
+                                    Toast.makeText(getContext(), "Anime getView null", Toast.LENGTH_LONG).show();
+                                    return;
+                                }
+
+                                ImageView imgAnime = viewHolder.findViewById(R.id.imageView1);
+                                TextView nomeAnime = viewHolder.findViewById(R.id.textView1);
+
+                                // Imposta il titolo dell'anime
+                                nomeAnime.setText(anime.getTitle());
+
+                                // Carica l'immagine dell'anime utilizzando Glide
+                                Glide.with(getContext())
+                                        .load(anime.getPicture())
+                                        .placeholder(R.drawable.card_image_placehodlerpng) // Your placeholder image
+                                        .error(R.drawable.card_image_placehodlerpng) // Image to show if the load fails
+                                        .dontAnimate()
+                                        .into(imgAnime);
+
+
+                            })
+                            .setOnItemClick((parent, clickedView, pos, itemId) -> {
+                                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                                InfopageFragment infopage = new InfopageFragment();
+                                Bundle bundle = new Bundle();
+                                bundle.putString("idAnime", list.get(pos).getId() + "");
+                                infopage.setArguments(bundle);
+                                transaction.replace(R.id.nav_host_fragment, infopage);
+                                transaction.addToBackStack(null);
+                                transaction.commit();
+
+                                Toast.makeText(getContext(), "Posizione: " + (pos + 1), Toast.LENGTH_SHORT).show();
+
+                            })
+                            .applyTo(R.id.lista_anime, viewFragment);
+
+
+                }).executeRequest(AnimeModel.class);
+    }
+
+    private void extracted(View viewFragment, String anno, String stagione) {
+        RetrofitHelper.<AnimeModel>request("/anime-stagionali")
+                .method(RequestBuilder.HttpType.GET)
+                .addQueryParam("anno", anno)
+                .addQueryParam("stagione", stagione)
+                .onSuccess((call, response, animeModel, list) -> {
+
+                    if (list == null) {
+                        Toast.makeText(getContext(), "Anime null", Toast.LENGTH_LONG).show();
+                        return;
+
+                    }
+                    adapter.clearItems();
+
+                    adapter = ArrayAdapterUtils.with(getContext(), list)
+                            .setLayoutRes(R.layout.img_name_anime)
+                            .setBinder((viewHolder, anime, i) -> {
+                                // è una item List View
+                                if (anime == null) {
+                                    Toast.makeText(getContext(), "Anime getView null", Toast.LENGTH_LONG).show();
+                                    return;
+                                }
+
+                                ImageView imgAnime = viewHolder.findViewById(R.id.imageView1);
+                                TextView nomeAnime = viewHolder.findViewById(R.id.textView1);
+
+                                // Imposta il titolo dell'anime
+                                nomeAnime.setText(anime.getTitle());
+
+                                // Carica l'immagine dell'anime utilizzando Glide
+                                Glide.with(getContext())
+                                        .load(anime.getPicture())
+                                        .placeholder(R.drawable.card_image_placehodlerpng) // Your placeholder image
+                                        .error(R.drawable.card_image_placehodlerpng) // Image to show if the load fails
+                                        .dontAnimate()
+                                        .into(imgAnime);
+
+
+                            })
+                            .setOnItemClick((parent, clickedView, pos, itemId) -> {
+                                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                                InfopageFragment infopage = new InfopageFragment();
+                                Bundle bundle = new Bundle();
+                                bundle.putString("idAnime", list.get(pos).getId() + "");
+                                infopage.setArguments(bundle);
+                                transaction.replace(R.id.nav_host_fragment, infopage);
+                                transaction.addToBackStack(null);
+                                transaction.commit();
+
+                                Toast.makeText(getContext(), "Posizione: " + (pos + 1), Toast.LENGTH_SHORT).show();
+
+                            })
+                            .applyTo(R.id.lista_anime, viewFragment);
+
+
+                }).onFailure(new RequestBuilder.OnResponseHandlerError() {
+                    @Override
+                    public void handle(Response<?> response, Throwable throwable) {
+
+                    }
+                })
+                .executeRequest(AnimeModel.class);
     }
 
 }
