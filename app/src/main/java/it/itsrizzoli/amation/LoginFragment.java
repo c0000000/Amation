@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.retrofit_helper.RequestBuilder;
 import com.example.retrofit_helper.RetrofitHelper;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import it.itsrizzoli.amation.model.AnimeModel;
 import it.itsrizzoli.amation.model.UserModel;
@@ -77,7 +78,11 @@ public class LoginFragment extends Fragment {
 
         Button logButton = view.findViewById(R.id.logBtn);
         Button gotoRegistraBtn = view.findViewById(R.id.gotoRegistra);
-
+        BottomNavigationView bottomNavigationView = null;
+        if (getActivity() != null) {
+            bottomNavigationView = getActivity().findViewById(R.id.bottom_navigation);
+            bottomNavigationView.setVisibility(View.INVISIBLE);
+        }
 
         logButton.setOnClickListener(new View.OnClickListener() {
             Fragment passFragment = null;
@@ -103,6 +108,10 @@ public class LoginFragment extends Fragment {
                                 transaction.replace(R.id.nav_host_fragment, new HomeFragment());
                                 transaction.addToBackStack(null);
                                 transaction.commit();
+                                if (getActivity() != null) {
+                                    BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_navigation);
+                                    bottomNavigationView.setVisibility(View.VISIBLE);
+                                }
                             } else {
                                 Toast.makeText(getContext(), "Username o password errato!", Toast.LENGTH_SHORT).show();
                             }
