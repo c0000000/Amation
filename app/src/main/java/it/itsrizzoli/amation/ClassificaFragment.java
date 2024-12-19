@@ -13,11 +13,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.example.arrayadapterutils.ArrayAdapterUtils;
-import com.example.arrayadapterutils.DynamicListAdapter;
 import com.example.retrofit_helper.RequestBuilder;
 import com.example.retrofit_helper.RetrofitHelper;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -70,8 +68,6 @@ public class ClassificaFragment extends Fragment {
         }
     }
 
-    List<AnimeModel> animeModelList = new ArrayList<>();
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -104,11 +100,10 @@ public class ClassificaFragment extends Fragment {
         super.onStart();
     }
 
-    DynamicListAdapter<AnimeModel> dynamicListAdapterDelete;
 
     private void fillAnimeRankAdapter(List<AnimeModel> animeList, View view) {
 
-        dynamicListAdapterDelete = ArrayAdapterUtils.with(getContext(), animeList)
+        ArrayAdapterUtils.with(getContext(), animeList)
                 .setLayoutRes(R.layout.item_card_anime)
                 .setBinder((viewHolder, animeModel, i) -> {
                     // è una item List View
@@ -126,8 +121,8 @@ public class ClassificaFragment extends Fragment {
                     // Carica l'immagine dell'anime utilizzando Glide
                     Glide.with(getContext())
                             .load(animeModel.getPicture())
-                            .placeholder(R.drawable.card_image_placehodlerpng) // Your placeholder image
-                            .error(R.drawable.card_image_placehodlerpng) // Image to show if the load fails
+                            .placeholder(R.drawable.card_image_placehodlerpng)
+                            .error(R.drawable.card_image_placehodlerpng) 
                             .dontAnimate()
                             .into(imageView);
 
